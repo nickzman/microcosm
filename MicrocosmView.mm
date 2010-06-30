@@ -60,10 +60,8 @@ inline BOOL canUseShaders(void)
             {
                 lView = [[[NSOpenGLView alloc] initWithFrame:NSZeroRect pixelFormat:format] autorelease];
                 [self addSubview:lView];
-				
-                lSettings.frameTime = 0;
                 
-				[[lView openGLContext] makeCurrentContext];	// must do this before RSSShadersSupported() will work
+				[[lView openGLContext] makeCurrentContext];	// must do this before queryExtension() will work
 				setDefaults(0, &lSettings);
                 if ([defaults objectForKey:@"SingleTime"])
                 {
@@ -115,6 +113,7 @@ inline BOOL canUseShaders(void)
             [[lView openGLContext] flushBuffer];
             
             initSaver(&lSettings);
+			gettimeofday(&timer.prev_tv, NULL);	// reset the timer
 			[self unlockFocus];
         }
     }
@@ -181,6 +180,7 @@ inline BOOL canUseShaders(void)
 			lSettings.frameTime = timer.tick();
 			if (lSettings.readyToDraw)
 			{
+				[[lView openGLContext] makeCurrentContext];
 				draw(&lSettings);
 				[[lView openGLContext] flushBuffer];
 			}

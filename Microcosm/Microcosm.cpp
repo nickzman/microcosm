@@ -283,7 +283,6 @@ static unsigned __stdcall threadFunction0(void* arg){
 	}
 #else
 void* threadFunction0(void* arg){
-	/*static */rsTimer computeTimer;
 	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)arg;
 	
 	// Conditional variables require their associated mutexes to start out locked
@@ -298,9 +297,9 @@ void* threadFunction0(void* arg){
 		// Block until signal is received.  Mutex is unlocked while waiting.
 		pthread_cond_wait(&inSettings->gT0Start, &inSettings->gT0StartMutex);
 		// Compute surface
-		computeTimer.tick();
+		inSettings->computeTimer.tick();
 		inSettings->volume0->makeSurface(inSettings->crawlpoints, inSettings);
-		inSettings->computeTime += computeTimer.tick();
+		inSettings->computeTime += inSettings->computeTimer.tick();
 		// Wait until main loop is signalable, then tell it that this computation is complete.
 		pthread_mutex_lock(&inSettings->gT0EndMutex);
 		pthread_mutex_unlock(&inSettings->gT0EndMutex);
@@ -329,7 +328,6 @@ static unsigned __stdcall threadFunction1(void* arg){
 	}
 #else
 void* threadFunction1(void* arg){
-	/*static */rsTimer computeTimer;
 	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)arg;
 
 	// Conditional variables require their associated mutexes to start out locked
@@ -344,10 +342,10 @@ void* threadFunction1(void* arg){
 		// Block until signal is received.  Mutex is unlocked while waiting.
 		pthread_cond_wait(&inSettings->gT1Start, &inSettings->gT1StartMutex);
 		// Compute surfaces
-		computeTimer.tick();
+		inSettings->computeTimer.tick();
 		inSettings->volume1->makeSurface(inSettings->crawlpoints, inSettings);
 		inSettings->volume2->makeSurface(inSettings->crawlpoints, inSettings);
-		inSettings->computeTime += computeTimer.tick();
+		inSettings->computeTime += inSettings->computeTimer.tick();
 		// Wait until main loop is signalable, then tell it that this computation is complete.
 		pthread_mutex_lock(&inSettings->gT1EndMutex);
 		pthread_mutex_unlock(&inSettings->gT1EndMutex);
@@ -391,7 +389,7 @@ void draw(MicrocosmSaverSettings *inSettings){
 		inSettings->gNumberInputTimer -= inSettings->frameTime;
 
 	// camera variables
-	static float rotPhase[3] = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
+	/*static float rotPhase[3] = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
 	static float rotRate[3] = {0.075f + rsRandf(0.05f), 0.075f + rsRandf(0.05f), 0.075f + rsRandf(0.05f)};
 	static float rot[3];
 	static rsVec cam0Start;
@@ -399,26 +397,26 @@ void draw(MicrocosmSaverSettings *inSettings){
 	static rsVec cam0Pos = cam0End;
 	static rsMatrix cam0Background;
 	static rsVec cam1Pos(0.1f, 0.2f, 0.3f);
-	static float cam0t = 1.0f;
+	static float cam0t = 1.0f;*/
 
 	// This is an Easter egg gizmo that shouldn't show up right when the saver
 	// starts, so we'll make it available a bit later.
-	static float easterEggTime = 0.0f;
+	//static float easterEggTime = 0.0f;
 	if(!inSettings->gTennisAvailable){
-		easterEggTime += inSettings->frameTime;
-		if(easterEggTime >= 1200.0f)
+		inSettings->easterEggTime += inSettings->frameTime;
+		if(inSettings->easterEggTime >= 1200.0f)
 			inSettings->gTennisAvailable = true;
 	}
 
 	// countdown to transition
-	static float transitionTime = 0.0f;
-	transitionTime += inSettings->frameTime;
+	//static float transitionTime = 0.0f;
+	inSettings->transitionTime += inSettings->frameTime;
 	const float ttime = (inSettings->gMode == 0) ? inSettings->dSingleTime : inSettings->dKaleidoscopeTime;
-	if((inSettings->gModeTransition > 1.0f && transitionTime > ttime) || inSettings->gSpecificGizmo >= 0){
+	if((inSettings->gModeTransition > 1.0f && inSettings->transitionTime > ttime) || inSettings->gSpecificGizmo >= 0){
 		if(inSettings->gModeTransition > 1.0f)
 			inSettings->gModeTransition = 1.0f;
 		inSettings->gModeTransitionDir = -1.0f;
-		transitionTime = 0.0f;
+		inSettings->transitionTime = 0.0f;
 	}
 
 	// transition
@@ -434,8 +432,8 @@ void draw(MicrocosmSaverSettings *inSettings){
 				chooseGizmo(-1, inSettings);
 			else{
 				if(rsRandi(4) == 0){
-					rotPhase[0] = rotPhase[1] = rotPhase[2] = 0.0f;
-					cam1Pos.set(0.0f, 0.0f, 0.0f);
+					inSettings->rotPhase[0] = inSettings->rotPhase[1] = inSettings->rotPhase[2] = 0.0f;
+					inSettings->cam1Pos.set(0.0f, 0.0f, 0.0f);
 				}
 			}
 		}
@@ -451,24 +449,24 @@ void draw(MicrocosmSaverSettings *inSettings){
 
 	// camera movement
 	for(int i=0; i<3; i++){
-		rotPhase[i] += rotRate[i] * 0.1f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
-		if(rotPhase[i] >= RS_PIx2)
-			rotPhase[i] -= RS_PIx2;
-		rot[i] += sinf(rotPhase[i]) * 0.012f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
+		inSettings->rotPhase[i] += inSettings->rotRate[i] * 0.1f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
+		if(inSettings->rotPhase[i] >= RS_PIx2)
+			inSettings->rotPhase[i] -= RS_PIx2;
+		inSettings->rot[i] += sinf(inSettings->rotPhase[i]) * 0.012f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
 	}
 
 	rsMatrix rotMat, camMat;
-	rotMat.makeRotate(rot[0], 1.0f, 0.0f, 0.0f);
-	rotMat.rotate(rot[1], 0.0f, 1.0f, 0.0f);
-	rotMat.rotate(rot[2], 0.0f, 0.0f, 1.0f);
+	rotMat.makeRotate(inSettings->rot[0], 1.0f, 0.0f, 0.0f);
+	rotMat.rotate(inSettings->rot[1], 0.0f, 1.0f, 0.0f);
+	rotMat.rotate(inSettings->rot[2], 0.0f, 0.0f, 1.0f);
 	if(inSettings->gMode == 0){
-		cam0t += inSettings->frameTime * 0.005f * float(inSettings->dCameraSpeed);
+		inSettings->cam0t += inSettings->frameTime * 0.005f * float(inSettings->dCameraSpeed);
 		// chooose new point to move to
 		float x, y, z;
 		z = -0.6f / tanf(0.5f * min(inSettings->gHFov, inSettings->gVFov));
-		if(cam0t >= 1.0f){
-			cam0t -= 1.0f;
-			cam0Start = cam0End;
+		if(inSettings->cam0t >= 1.0f){
+			inSettings->cam0t -= 1.0f;
+			inSettings->cam0Start = inSettings->cam0End;
 			if(inSettings->aspectRatio >= 1.0f){
 				const float drift = inSettings->aspectRatio - 0.5f;
 				x = rsRandf(drift) - drift * 0.5f;
@@ -479,32 +477,32 @@ void draw(MicrocosmSaverSettings *inSettings){
 				x = rsRandf(0.4f) - 0.2f;
 				y = rsRandf(drift) - drift * 0.5f;
 			}
-			cam0End.set(x, y, z);
+			inSettings->cam0End.set(x, y, z);
 		}
 		// move camera
-		float t = 0.5f * (1.0f - cosf(RS_PI * cam0t));
-		cam0Pos = cam0Start * (1.0f - t) + cam0End * t;
-		camMat.makeTranslate(cam0Pos);
+		float t = 0.5f * (1.0f - cosf(RS_PI * inSettings->cam0t));
+		inSettings->cam0Pos = inSettings->cam0Start * (1.0f - t) + inSettings->cam0End * t;
+		camMat.makeTranslate(inSettings->cam0Pos);
 		camMat.preMult(rotMat);
 		inSettings->gCamera.setViewMatrix(camMat);
 		// background matrix
 		rsMatrix backgroundrotmat;
 		backgroundrotmat.makeRotate(2.0f, 1.0f, 1.0f, 1.0f);
-		cam0Background.makeTranslate(0.0f, 0.0f, -4.0f);
-		cam0Background.preMult(rotMat);
-		cam0Background.preMult(backgroundrotmat);
+		inSettings->cam0Background.makeTranslate(0.0f, 0.0f, -4.0f);
+		inSettings->cam0Background.preMult(rotMat);
+		inSettings->cam0Background.preMult(backgroundrotmat);
 	}
 	else{
-		cam1Pos[0] -= rotMat[2] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
-		cam1Pos[1] -= rotMat[6] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
-		cam1Pos[2] -= rotMat[10] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
-		if(cam1Pos[0] < -1.0f) cam1Pos[0] += 2.0f;
-		if(cam1Pos[0] > 1.0f) cam1Pos[0] -= 2.0f;
-		if(cam1Pos[1] < -1.0f) cam1Pos[1] += 2.0f;
-		if(cam1Pos[1] > 1.0f) cam1Pos[1] -= 2.0f;
-		if(cam1Pos[2] < -1.0f) cam1Pos[2] += 2.0f;
-		if(cam1Pos[2] > 1.0f) cam1Pos[2] -= 2.0f;
-		camMat.makeTranslate(-cam1Pos[0], -cam1Pos[1], -cam1Pos[2]);
+		inSettings->cam1Pos[0] -= rotMat[2] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
+		inSettings->cam1Pos[1] -= rotMat[6] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
+		inSettings->cam1Pos[2] -= rotMat[10] * 0.06f * float(inSettings->dCameraSpeed) * inSettings->frameTime;
+		if(inSettings->cam1Pos[0] < -1.0f) inSettings->cam1Pos[0] += 2.0f;
+		if(inSettings->cam1Pos[0] > 1.0f) inSettings->cam1Pos[0] -= 2.0f;
+		if(inSettings->cam1Pos[1] < -1.0f) inSettings->cam1Pos[1] += 2.0f;
+		if(inSettings->cam1Pos[1] > 1.0f) inSettings->cam1Pos[1] -= 2.0f;
+		if(inSettings->cam1Pos[2] < -1.0f) inSettings->cam1Pos[2] += 2.0f;
+		if(inSettings->cam1Pos[2] > 1.0f) inSettings->cam1Pos[2] -= 2.0f;
+		camMat.makeTranslate(-inSettings->cam1Pos[0], -inSettings->cam1Pos[1], -inSettings->cam1Pos[2]);
 		camMat.postMult(rotMat);
 		inSettings->gCamera.setViewMatrix(camMat);
 	}
@@ -523,9 +521,9 @@ void draw(MicrocosmSaverSettings *inSettings){
 	volume2->setSurfaceValue(surface_value);*/
 
 	// store eye position values for surface function
-	inSettings->sfEyeX = fabsf(cam1Pos[0]) - 0.5f;
-	inSettings->sfEyeY = fabsf(cam1Pos[1]) - 0.5f;
-	inSettings->sfEyeZ = fabsf(cam1Pos[2]) - 0.5f;
+	inSettings->sfEyeX = fabsf(inSettings->cam1Pos[0]) - 0.5f;
+	inSettings->sfEyeY = fabsf(inSettings->cam1Pos[1]) - 0.5f;
+	inSettings->sfEyeZ = fabsf(inSettings->cam1Pos[2]) - 0.5f;
 
 	inSettings->mirrorbox.update(inSettings->frameTime);
 
@@ -556,19 +554,19 @@ void draw(MicrocosmSaverSettings *inSettings){
 	}
 
 	// Signal the worker threads to create implicit surfaces
-	static int whichsurface = 0;
+	//static int whichsurface = 0;
 	if(inSettings->gUseThreads){
 		// Note that in this multithreaded mode, the comptute and draw happen simultaneously,
 		// so what is being drawn by the main thread is always one frame behind the compute threads.
 	
 		// swap double-buffer impSurfaces
-		inSettings->drawSurface0 = inSettings->volSurface0[whichsurface];
-		inSettings->drawSurface1 = inSettings->volSurface1[whichsurface];
-		inSettings->drawSurface2 = inSettings->volSurface2[whichsurface];
-		whichsurface = (whichsurface + 1) % 2;
-		inSettings->volume0->setSurface(inSettings->volSurface0[whichsurface]);
-		inSettings->volume1->setSurface(inSettings->volSurface1[whichsurface]);
-		inSettings->volume2->setSurface(inSettings->volSurface2[whichsurface]);
+		inSettings->drawSurface0 = inSettings->volSurface0[inSettings->whichsurface];
+		inSettings->drawSurface1 = inSettings->volSurface1[inSettings->whichsurface];
+		inSettings->drawSurface2 = inSettings->volSurface2[inSettings->whichsurface];
+		inSettings->whichsurface = (inSettings->whichsurface + 1) % 2;
+		inSettings->volume0->setSurface(inSettings->volSurface0[inSettings->whichsurface]);
+		inSettings->volume1->setSurface(inSettings->volSurface1[inSettings->whichsurface]);
+		inSettings->volume2->setSurface(inSettings->volSurface2[inSettings->whichsurface]);
 
 #ifdef WIN32
 		// Block until thread0 is ready to be signaled again, then signal it.
@@ -591,8 +589,7 @@ void draw(MicrocosmSaverSettings *inSettings){
 #endif
 	}
 	else{
-		static rsTimer computeTimer;
-		computeTimer.tick();
+		inSettings->computeTimer.tick();
 
 		inSettings->volume0->makeSurface(inSettings->crawlpoints, inSettings);
 		// In kaleidoscope mode, also compute low-LOD surfaces.
@@ -602,11 +599,11 @@ void draw(MicrocosmSaverSettings *inSettings){
 			inSettings->volume2->makeSurface(inSettings->crawlpoints, inSettings);
 		}
 
-		inSettings->computeTime += computeTimer.tick();
+		inSettings->computeTime += inSettings->computeTimer.tick();
 	}
 
-	static rsTimer drawTimer;
-	drawTimer.tick();
+	//static rsTimer drawTimer;
+	inSettings->drawTimer.tick();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -618,15 +615,15 @@ void draw(MicrocosmSaverSettings *inSettings){
 	glLightfv(GL_LIGHT1, GL_POSITION, position1);
 
 	// animate texture
-	static float tcphase[3] = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
-	tcphase[0] += inSettings->frameTime * 0.0181f * float(inSettings->dColorSpeed);  // oscillator for object space texcoord
-	tcphase[1] += inSettings->frameTime * 0.0221f * float(inSettings->dColorSpeed);  // oscillator for eye space texcoord
-	tcphase[2] += inSettings->frameTime * 0.0037f * float(inSettings->dColorSpeed);  // oscillator for moving between object and eye space texcoords
+	//static float tcphase[3] = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
+	inSettings->tcphase[0] += inSettings->frameTime * 0.0181f * float(inSettings->dColorSpeed);  // oscillator for object space texcoord
+	inSettings->tcphase[1] += inSettings->frameTime * 0.0221f * float(inSettings->dColorSpeed);  // oscillator for eye space texcoord
+	inSettings->tcphase[2] += inSettings->frameTime * 0.0037f * float(inSettings->dColorSpeed);  // oscillator for moving between object and eye space texcoords
 	for(int i=0; i<3; i++){
-		if(tcphase[i] >= RS_PIx2)
-			tcphase[i] -= RS_PIx2;
+		if(inSettings->tcphase[i] >= RS_PIx2)
+			inSettings->tcphase[i] -= RS_PIx2;
 	}
-	float tcmix[] = {sinf(tcphase[0]) * 0.5f + 0.5f, sinf(tcphase[1]) * 0.6f + 0.5f, sinf(tcphase[2]) + 0.5f};
+	float tcmix[] = {sinf(inSettings->tcphase[0]) * 0.5f + 0.5f, sinf(inSettings->tcphase[1]) * 0.6f + 0.5f, sinf(inSettings->tcphase[2]) + 0.5f};
 	for(int i=0; i<3; i++){
 		if(tcmix[i] < 0.0f)
 			tcmix[i] = 0.0f;
@@ -672,7 +669,7 @@ void draw(MicrocosmSaverSettings *inSettings){
 				gluPerspective(fov, inSettings->aspectRatio, 0.01f, 50.0f);
 				glMatrixMode(GL_MODELVIEW);
 				glPushMatrix();
-					glLoadMatrixf(cam0Background.get());
+					glLoadMatrixf(inSettings->cam0Background.get());
 					inSettings->drawSurface0->draw();
 				glPopMatrix();
 				glMatrixMode(GL_PROJECTION);
@@ -721,9 +718,9 @@ void draw(MicrocosmSaverSettings *inSettings){
 					const float y(float(2 * j));
 					const float z(float(2 * k));
 					if(inSettings->gCamera.inViewVolume(rsVec(x, y, z), 1.7320508f)){
-						const float eye_x(x - cam1Pos[0]);
-						const float eye_y(y - cam1Pos[1]);
-						const float eye_z(z - cam1Pos[2]);
+						const float eye_x(x - inSettings->cam1Pos[0]);
+						const float eye_y(y - inSettings->cam1Pos[1]);
+						const float eye_z(z - inSettings->cam1Pos[2]);
 						inSettings->mirrorbox.draw(x, y, z, eye_x, eye_y, eye_z, inSettings->gCamera, inSettings->drawSurface0, inSettings->drawSurface1, inSettings->drawSurface2);
 					}
 				}
@@ -749,7 +746,7 @@ void draw(MicrocosmSaverSettings *inSettings){
 
 	inSettings->gCamera.revoke();
 
-	inSettings->drawTime += drawTimer.tick();
+	inSettings->drawTime += inSettings->drawTimer.tick();
 
 	// Pause here until worker threads are finished.  This prevents draw() from starting over
 	// and changing the surface parameters until the worker threads are done using them.
@@ -969,6 +966,24 @@ void initSaver(MicrocosmSaverSettings *inSettings){
 	pthread_mutex_init(&inSettings->gT1StartMutex, NULL);
 	pthread_mutex_init(&inSettings->gT1EndMutex, NULL);
 	inSettings->textwriter = new rsText;
+	inSettings->rotPhase[0] = rsRandf(RS_PIx2);
+	inSettings->rotPhase[1] = rsRandf(RS_PIx2);
+	inSettings->rotPhase[2] = rsRandf(RS_PIx2);
+	inSettings->rotRate[0] = 0.075f + rsRandf(0.05f);
+	inSettings->rotRate[1] = 0.075f + rsRandf(0.05f);
+	inSettings->rotRate[2] = 0.075f + rsRandf(0.05f);
+	inSettings->cam0End.set(rsRandf(2.0f) - 1.0f, rsRandf(2.0f) - 1.0f, -2.0f / tanf(0.5f * std::min(inSettings->gHFov, inSettings->gVFov)));
+	inSettings->cam0Pos = inSettings->cam0End;
+	inSettings->cam1Pos.set(0.1f, 0.2f, 0.3f);
+	inSettings->cam0t = 1.0f;
+	inSettings->easterEggTime = 0.0f;
+	inSettings->transitionTime = 0.0f;
+	inSettings->whichsurface = 0;
+	gettimeofday(&inSettings->drawTimer.prev_tv, NULL);
+	gettimeofday(&inSettings->computeTimer.prev_tv, NULL);
+	inSettings->tcphase[0] = rsRandf(RS_PIx2);
+	inSettings->tcphase[1] = rsRandf(RS_PIx2);
+	inSettings->tcphase[2] = rsRandf(RS_PIx2);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

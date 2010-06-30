@@ -14,6 +14,7 @@
 #include "rsCamera.h"
 #include "MirrorBox.h"
 #include "Gizmo.h"
+#include "util/rsTimer.h"
 
 class rsText;
 class impCubeVolume;
@@ -116,7 +117,25 @@ typedef struct MicrocosmSaverSettings
 	pthread_mutex_t gT0EndMutex;// = PTHREAD_MUTEX_INITIALIZER;
 	pthread_mutex_t gT1StartMutex;// = PTHREAD_MUTEX_INITIALIZER;
 	pthread_mutex_t gT1EndMutex;// = PTHREAD_MUTEX_INITIALIZER;
-#endif	
+#endif
+	
+	// camera variables
+	float rotPhase[3];// = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
+	float rotRate[3];// = {0.075f + rsRandf(0.05f), 0.075f + rsRandf(0.05f), 0.075f + rsRandf(0.05f)};
+	float rot[3];
+	rsVec cam0Start;
+	rsVec cam0End;//(rsRandf(2.0f) - 1.0f, rsRandf(2.0f) - 1.0f, -2.0f / tanf(0.5f * min(inSettings->gHFov, inSettings->gVFov)));
+	rsVec cam0Pos;// = cam0End;
+	rsMatrix cam0Background;
+	rsVec cam1Pos;//(0.1f, 0.2f, 0.3f);
+	float cam0t;// = 1.0f;
+	
+	rsTimer computeTimer;
+	float easterEggTime;// = 0.0f;
+	float transitionTime;// = 0.0f;
+	int whichsurface;// = 0;
+	rsTimer drawTimer;
+	float tcphase[3];// = {rsRandf(RS_PIx2), rsRandf(RS_PIx2), rsRandf(RS_PIx2)};
 };
 
 __private_extern__ void draw(MicrocosmSaverSettings *inSettings);
