@@ -32,7 +32,7 @@
 
 #include <math.h>
 
-typedef struct MicrocosmSaverSettings;
+
 
 struct cubedata{
 	// corner mask which describes how cube is polygonized
@@ -80,7 +80,8 @@ public:
 
 class impCubeVolume{
 public:
-	float (*function)(float* position, MicrocosmSaverSettings *inSettings);
+	float (*function)(float* position, void *contextInfo);
+	void *contextInfoForFunction;
 private:
 	float lbf[3];  // left-bottom-far corner of volume
 	float cubewidth;
@@ -119,31 +120,31 @@ public:
 	// If no crawlpoint list is provided, then every cube is checked, which
 	// is slow but thorough (there's no chance of missing a piece of the
 	// surface).
-	void makeSurface(MicrocosmSaverSettings *inSettings);
-	void makeSurface(float eyex, float eyey, float eyez, MicrocosmSaverSettings *inSettings);
-	void makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings *inSettings);
-	void makeSurface(float eyex, float eyey, float eyez, impCrawlPointVector &cpv, MicrocosmSaverSettings *inSettings);
+	void makeSurface();
+	void makeSurface(float eyex, float eyey, float eyez);
+	void makeSurface(impCrawlPointVector &cpv);
+	void makeSurface(float eyex, float eyey, float eyez, impCrawlPointVector &cpv);
 
 private:
 	// x, y, and z define position of cube in this volume
 	inline const unsigned int calculateCornerMask(const unsigned int& x, const unsigned int& y, const unsigned int& z);
 
 	// Crawl the cube starting at this location
-	inline void crawl_nosort(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings);
+	inline void crawl_nosort(unsigned int x, unsigned int y, unsigned int z);
 	// Same as above, but store the cubes containing surface for sorting later
-	inline void crawl_sort(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings);
+	inline void crawl_sort(unsigned int x, unsigned int y, unsigned int z);
 
-	inline void polygonize(unsigned int index, MicrocosmSaverSettings *inSettings);
+	inline void polygonize(unsigned int index);
 
-	inline void findcornervalues(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings);
+	inline void findcornervalues(unsigned int x, unsigned int y, unsigned int z);
 
 	// functions for retrieving values that may or may not have been computed already
-	inline float getXPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings);
-	inline float getYPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings);
-	inline float getZPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings);
+	inline float getXPlus1Value(unsigned int index);
+	inline float getYPlus1Value(unsigned int index);
+	inline float getZPlus1Value(unsigned int index);
 
 	// compute an actual vertex position and normal and add it to the surface
-	inline void addVertexToSurface(const unsigned int& axis, const unsigned int& index, MicrocosmSaverSettings *inSettings);
+	inline void addVertexToSurface(const unsigned int& axis, const unsigned int& index);
 
 	// utility function for converting 3D cube coordinates to a cube index
 	inline const unsigned int cubeindex(const unsigned int& i, const unsigned int& j, const unsigned int& k)

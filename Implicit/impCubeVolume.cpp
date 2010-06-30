@@ -95,7 +95,7 @@ void impCubeVolume::init(unsigned int width, unsigned int height, unsigned int l
 }
 
 
-void impCubeVolume::makeSurface(MicrocosmSaverSettings *inSettings){
+void impCubeVolume::makeSurface(){
 	unsigned int i, j, k;
 
 	frame ++;
@@ -107,7 +107,7 @@ void impCubeVolume::makeSurface(MicrocosmSaverSettings *inSettings){
 		for(j=0; j<=h; ++j){
 			for(k=0; k<=l; ++k){
 				const unsigned int ci(cubeindex(i,j,k));
-				cubes[ci].value = function(&(cubes[ci].x), inSettings);
+				cubes[ci].value = function(&(cubes[ci].x), contextInfoForFunction);
 			}
 		}
 	}
@@ -119,14 +119,14 @@ void impCubeVolume::makeSurface(MicrocosmSaverSettings *inSettings){
 			for(k=0; k<l; ++k){
 				const unsigned int ci(cubeindex(i,j,k));
 				cubes[ci].mask = calculateCornerMask(i, j, k);
-				polygonize(ci, inSettings);
+				polygonize(ci);
 			}
 		}
 	}
 }
 
 
-void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::makeSurface(float eyex, float eyey, float eyez){
 	unsigned int i, j, k;
 
 	frame ++;
@@ -138,7 +138,7 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, MicrocosmSav
 		for(j=0; j<=h; ++j){
 			for(k=0; k<=l; ++k){
 				const unsigned int ci(cubeindex(i,j,k));
-				cubes[ci].value = function(&(cubes[ci].x), inSettings);
+				cubes[ci].value = function(&(cubes[ci].x), contextInfoForFunction);
 			}
 		}
 	}
@@ -173,11 +173,11 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, MicrocosmSav
 	// polygonize
 	currentVertexIndex = 0;
 	for(std::list<sortableCube>::iterator c = sortableCubes.begin(); c != sortableCubes.end(); ++c)
-		polygonize(c->index, inSettings);
+		polygonize(c->index);
 }
 
 
-void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::makeSurface(impCrawlPointVector &cpv){
 	unsigned int i, j, k;
 	bool crawlpointexit;
 	unsigned int mask;
@@ -214,7 +214,7 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 			if(cubes[ci].cube_frame == frame)
 				crawlpointexit = true;  // escape if starting on a finished cube
 			else{  // find index for this cube
-				findcornervalues(i, j, k, inSettings);
+				findcornervalues(i, j, k);
 				mask = calculateCornerMask(i, j, k);
 				// save index for polygonizing
 				cubes[ci].mask = mask;
@@ -228,7 +228,7 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 							crawlpointexit = true;
 					}
 					else{
-						crawl_nosort(i, j, k, inSettings);
+						crawl_nosort(i, j, k);
 						crawlpointexit = true;
 					}
 				}
@@ -243,33 +243,33 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 				cubedata& cube0(cubes[cubeindex(i,j,0)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
 					if(i!=0 && j!=0)
-						crawl_nosort(i-1,j-1,0, inSettings);
+						crawl_nosort(i-1,j-1,0);
 					if(i!=w && j!=0)
-						crawl_nosort(i,j-1,0, inSettings);
+						crawl_nosort(i,j-1,0);
 					if(i!=0 && j!=h)
-						crawl_nosort(i-1,j,0, inSettings);
+						crawl_nosort(i-1,j,0);
 					if(i!=w && j!=h)
-						crawl_nosort(i,j,0, inSettings);
+						crawl_nosort(i,j,0);
 				}
 				// right side of volume
 				cubedata& cube1(cubes[cubeindex(i,j,l)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
 					if(i!=0 && j!=0)
-						crawl_nosort(i-1,j-1,l-1, inSettings);
+						crawl_nosort(i-1,j-1,l-1);
 					if(i!=w && j!=0)
-						crawl_nosort(i,j-1,l-1, inSettings);
+						crawl_nosort(i,j-1,l-1);
 					if(i!=0 && j!=h)
-						crawl_nosort(i-1,j,l-1, inSettings);
+						crawl_nosort(i-1,j,l-1);
 					if(i!=w && j!=h)
-						crawl_nosort(i,j,l-1, inSettings);
+						crawl_nosort(i,j,l-1);
 				}
 			}
 		}
@@ -279,32 +279,32 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 				cubedata& cube0(cubes[cubeindex(i,0,k)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
 					if(i!=0){
-						crawl_nosort(i-1,0,k-1, inSettings);
-						crawl_nosort(i-1,0,k, inSettings);
+						crawl_nosort(i-1,0,k-1);
+						crawl_nosort(i-1,0,k);
 					}
 					if(i!=w){
-						crawl_nosort(i,0,k-1, inSettings);
-						crawl_nosort(i,0,k, inSettings);
+						crawl_nosort(i,0,k-1);
+						crawl_nosort(i,0,k);
 					}
 				}
 				// top of volume
 				cubedata& cube1(cubes[cubeindex(i,h,k)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
 					if(i!=0){
-						crawl_nosort(i-1,h-1,k-1, inSettings);
-						crawl_nosort(i-1,h-1,k, inSettings);
+						crawl_nosort(i-1,h-1,k-1);
+						crawl_nosort(i-1,h-1,k);
 					}
 					if(i!=w){
-						crawl_nosort(i,h-1,k-1, inSettings);
-						crawl_nosort(i,h-1,k, inSettings);
+						crawl_nosort(i,h-1,k-1);
+						crawl_nosort(i,h-1,k);
 					}
 				}
 			}
@@ -315,25 +315,25 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 				cubedata& cube0(cubes[cubeindex(0,j,k)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
-					crawl_nosort(0,j-1,k-1, inSettings);
-					crawl_nosort(0,j,k-1, inSettings);
-					crawl_nosort(0,j-1,k, inSettings);
-					crawl_nosort(0,j,k, inSettings);
+					crawl_nosort(0,j-1,k-1);
+					crawl_nosort(0,j,k-1);
+					crawl_nosort(0,j-1,k);
+					crawl_nosort(0,j,k);
 				}
 				// front of volume
 				cubedata& cube1(cubes[cubeindex(w,j,k)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
-					crawl_nosort(w-1,j-1,k-1, inSettings);
-					crawl_nosort(w-1,j,k-1, inSettings);
-					crawl_nosort(w-1,j-1,k, inSettings);
-					crawl_nosort(w-1,j,k, inSettings);
+					crawl_nosort(w-1,j-1,k-1);
+					crawl_nosort(w-1,j,k-1);
+					crawl_nosort(w-1,j-1,k);
+					crawl_nosort(w-1,j,k);
 				}
 			}
 		}
@@ -342,11 +342,11 @@ void impCubeVolume::makeSurface(impCrawlPointVector &cpv, MicrocosmSaverSettings
 	// polygonize
 	currentVertexIndex = 0;
 	for(unsigned int c=0; c<currentCubeIndex; ++c)
-		polygonize(cubeIndices[c], inSettings);
+		polygonize(cubeIndices[c]);
 }
 
 
-void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPointVector &cpv, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPointVector &cpv){
 	int i, j, k;
 	bool crawlpointexit;
 	unsigned int mask;
@@ -384,7 +384,7 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 			if(cubes[ci].cube_frame == frame)
 				crawlpointexit = true;  // escape if starting on a finished cube
 			else{  // find index for this cube
-				findcornervalues(i, j, k, inSettings);
+				findcornervalues(i, j, k);
 				mask = calculateCornerMask(i, j, k);
 				// save index for polygonizing
 				cubes[ci].mask = mask;
@@ -398,7 +398,7 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 							crawlpointexit = true;
 					}
 					else{
-						crawl_sort(i, j, k, inSettings);
+						crawl_sort(i, j, k);
 						crawlpointexit = true;
 					}
 				}
@@ -413,33 +413,33 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 				cubedata& cube0(cubes[cubeindex(i,j,0)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
 					if(i!=0 && j!=0)
-						crawl_sort(i-1,j-1,0, inSettings);
+						crawl_sort(i-1,j-1,0);
 					if(i!=w && j!=0)
-						crawl_sort(i,j-1,0, inSettings);
+						crawl_sort(i,j-1,0);
 					if(i!=0 && j!=h)
-						crawl_sort(i-1,j,0, inSettings);
+						crawl_sort(i-1,j,0);
 					if(i!=w && j!=h)
-						crawl_sort(i,j,0, inSettings);
+						crawl_sort(i,j,0);
 				}
 				// right side of volume
 				cubedata& cube1(cubes[cubeindex(i,j,l)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
 					if(i!=0 && j!=0)
-						crawl_sort(i-1,j-1,l-1, inSettings);
+						crawl_sort(i-1,j-1,l-1);
 					if(i!=w && j!=0)
-						crawl_sort(i,j-1,l-1, inSettings);
+						crawl_sort(i,j-1,l-1);
 					if(i!=0 && j!=h)
-						crawl_sort(i-1,j,l-1, inSettings);
+						crawl_sort(i-1,j,l-1);
 					if(i!=w && j!=h)
-						crawl_sort(i,j,l-1, inSettings);
+						crawl_sort(i,j,l-1);
 				}
 			}
 		}
@@ -449,32 +449,32 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 				cubedata& cube0(cubes[cubeindex(i,0,k)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
 					if(i!=0){
-						crawl_sort(i-1,0,k-1, inSettings);
-						crawl_sort(i-1,0,k, inSettings);
+						crawl_sort(i-1,0,k-1);
+						crawl_sort(i-1,0,k);
 					}
 					if(i!=w){
-						crawl_sort(i,0,k-1, inSettings);
-						crawl_sort(i,0,k, inSettings);
+						crawl_sort(i,0,k-1);
+						crawl_sort(i,0,k);
 					}
 				}
 				// top of volume
 				cubedata& cube1(cubes[cubeindex(i,h,k)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
 					if(i!=0){
-						crawl_sort(i-1,h-1,k-1, inSettings);
-						crawl_sort(i-1,h-1,k, inSettings);
+						crawl_sort(i-1,h-1,k-1);
+						crawl_sort(i-1,h-1,k);
 					}
 					if(i!=w){
-						crawl_sort(i,h-1,k-1, inSettings);
-						crawl_sort(i,h-1,k, inSettings);
+						crawl_sort(i,h-1,k-1);
+						crawl_sort(i,h-1,k);
 					}
 				}
 			}
@@ -485,25 +485,25 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 				cubedata& cube0(cubes[cubeindex(0,j,k)]);
 				if(cube0.corner_frame != frame){
 					cube0.corner_frame = frame;
-					cube0.value = function(&(cube0.x), inSettings);
+					cube0.value = function(&(cube0.x), contextInfoForFunction);
 				}
 				if(cube0.value >= surfacevalue){
-					crawl_sort(0,j-1,k-1, inSettings);
-					crawl_sort(0,j,k-1, inSettings);
-					crawl_sort(0,j-1,k, inSettings);
-					crawl_sort(0,j,k, inSettings);
+					crawl_sort(0,j-1,k-1);
+					crawl_sort(0,j,k-1);
+					crawl_sort(0,j-1,k);
+					crawl_sort(0,j,k);
 				}
 				// front of volume
 				cubedata& cube1(cubes[cubeindex(w,j,k)]);
 				if(cube1.corner_frame != frame){
 					cube1.corner_frame = frame;
-					cube1.value = function(&(cube1.x), inSettings);
+					cube1.value = function(&(cube1.x), contextInfoForFunction);
 				}
 				if(cube1.value >= surfacevalue){
-					crawl_sort(w-1,j-1,k-1, inSettings);
-					crawl_sort(w-1,j,k-1, inSettings);
-					crawl_sort(w-1,j-1,k, inSettings);
-					crawl_sort(w-1,j,k, inSettings);
+					crawl_sort(w-1,j-1,k-1);
+					crawl_sort(w-1,j,k-1);
+					crawl_sort(w-1,j-1,k);
+					crawl_sort(w-1,j,k);
 				}
 			}
 		}
@@ -524,7 +524,7 @@ void impCubeVolume::makeSurface(float eyex, float eyey, float eyez, impCrawlPoin
 	// polygonize
 	currentVertexIndex = 0;
 	for(std::list<sortableCube>::iterator c = sortableCubes.begin(); c != sortableCubes.end(); ++c)
-		polygonize(c->index, inSettings);
+		polygonize(c->index);
 }
 
 
@@ -542,14 +542,14 @@ const unsigned int impCubeVolume::calculateCornerMask(const unsigned int& x, con
 }
 
 
-void impCubeVolume::crawl_nosort(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::crawl_nosort(unsigned int x, unsigned int y, unsigned int z){
 	// quit if this cube has been done
 	const unsigned int ci(cubeindex(x,y,z));
 	cubedata& cube(cubes[ci]);
 	if(cube.cube_frame == frame)
 		return;
 
-	findcornervalues(x, y, z, inSettings);
+	findcornervalues(x, y, z);
 	const unsigned int mask(calculateCornerMask(x, y, z));
 
 	// add this cube to list of crawled cubes, resizing vector if necessary
@@ -566,28 +566,28 @@ void impCubeVolume::crawl_nosort(unsigned int x, unsigned int y, unsigned int z,
 
 	// crawl to adjacent cubes
 	if(crawlDirections[mask][0] && x > 0)
-		crawl_nosort(x-1, y, z, inSettings);
+		crawl_nosort(x-1, y, z);
 	if(crawlDirections[mask][1] && x < w-1)
-		crawl_nosort(x+1, y, z, inSettings);
+		crawl_nosort(x+1, y, z);
 	if(crawlDirections[mask][2] && y > 0)
-		crawl_nosort(x, y-1, z, inSettings);
+		crawl_nosort(x, y-1, z);
 	if(crawlDirections[mask][3] && y < h-1)
-		crawl_nosort(x, y+1, z, inSettings);
+		crawl_nosort(x, y+1, z);
 	if(crawlDirections[mask][4] && z > 0)
-		crawl_nosort(x, y, z-1, inSettings);
+		crawl_nosort(x, y, z-1);
 	if(crawlDirections[mask][5] && z < l-1)
-		crawl_nosort(x, y, z+1, inSettings);
+		crawl_nosort(x, y, z+1);
 }
 
 
-void impCubeVolume::crawl_sort(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::crawl_sort(unsigned int x, unsigned int y, unsigned int z){
 	// quit if this cube has been done
 	const unsigned int ci(cubeindex(x,y,z));
 	cubedata& cube(cubes[ci]);
 	if(cube.cube_frame == frame)
 		return;
 
-	findcornervalues(x, y, z, inSettings);
+	findcornervalues(x, y, z);
 	const int mask(calculateCornerMask(x, y, z));
 
 	// add cube to list
@@ -601,22 +601,22 @@ void impCubeVolume::crawl_sort(unsigned int x, unsigned int y, unsigned int z, M
 
 	// crawl to adjacent cubes
 	if(crawlDirections[mask][0] && x > 0)
-		crawl_sort(x-1, y, z, inSettings);
+		crawl_sort(x-1, y, z);
 	if(crawlDirections[mask][1] && x < w-1)
-		crawl_sort(x+1, y, z, inSettings);
+		crawl_sort(x+1, y, z);
 	if(crawlDirections[mask][2] && y > 0)
-		crawl_sort(x, y-1, z, inSettings);
+		crawl_sort(x, y-1, z);
 	if(crawlDirections[mask][3] && y < h-1)
-		crawl_sort(x, y+1, z, inSettings);
+		crawl_sort(x, y+1, z);
 	if(crawlDirections[mask][4] && z > 0)
-		crawl_sort(x, y, z-1, inSettings);
+		crawl_sort(x, y, z-1);
 	if(crawlDirections[mask][5] && z < l-1)
-		crawl_sort(x, y, z+1, inSettings);
+		crawl_sort(x, y, z+1);
 }
 
 
 // polygonize an individual cube
-void impCubeVolume::polygonize(unsigned int index, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::polygonize(unsigned int index){
 	// find index into cubetable
 	const unsigned int mask(cubes[index].mask);
 
@@ -639,40 +639,40 @@ void impCubeVolume::polygonize(unsigned int index, MicrocosmSaverSettings *inSet
 #endif
 				// generate vertex position and normal data
 				case 0:
-					addVertexToSurface(2, index, inSettings);
+					addVertexToSurface(2, index);
 					break;
 				case 1:
-					addVertexToSurface(1, index, inSettings);
+					addVertexToSurface(1, index);
 					break;
 				case 2:
-					addVertexToSurface(1, index + w_1xh_1, inSettings);
+					addVertexToSurface(1, index + w_1xh_1);
 					break;
 				case 3:
-					addVertexToSurface(2, index + w_1, inSettings);
+					addVertexToSurface(2, index + w_1);
 					break;
 				case 4:
-					addVertexToSurface(0, index, inSettings);
+					addVertexToSurface(0, index);
 					break;
 				case 5:
-					addVertexToSurface(0, index + w_1xh_1, inSettings);
+					addVertexToSurface(0, index + w_1xh_1);
 					break;
 				case 6:
-					addVertexToSurface(0, index + w_1, inSettings);
+					addVertexToSurface(0, index + w_1);
 					break;
 				case 7:
-					addVertexToSurface(0, index + w_1 + w_1xh_1, inSettings);
+					addVertexToSurface(0, index + w_1 + w_1xh_1);
 					break;
 				case 8:
-					addVertexToSurface(2, index + 1, inSettings);
+					addVertexToSurface(2, index + 1);
 					break;
 				case 9:
-					addVertexToSurface(1, index + 1, inSettings);
+					addVertexToSurface(1, index + 1);
 					break;
 				case 10:
-					addVertexToSurface(1, index + 1 + w_1xh_1, inSettings);
+					addVertexToSurface(1, index + 1 + w_1xh_1);
 					break;
 				case 11:
-					addVertexToSurface(2, index + 1 + w_1, inSettings);
+					addVertexToSurface(2, index + 1 + w_1);
 					break;
 				}
 #if USE_TRIANGLE_STRIPS
@@ -687,74 +687,74 @@ void impCubeVolume::polygonize(unsigned int index, MicrocosmSaverSettings *inSet
 
 
 // find value at all corners of this cube
-void impCubeVolume::findcornervalues(unsigned int x, unsigned int y, unsigned int z, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::findcornervalues(unsigned int x, unsigned int y, unsigned int z){
 	{
 		cubedata& cube(cubes[cubeindex(x,y,z)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x+1,y,z)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x,y+1,z)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x+1,y+1,z)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x,y,z+1)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x+1,y,z+1)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x,y+1,z+1)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 	{
 		cubedata& cube(cubes[cubeindex(x+1,y+1,z+1)]);
 		if(cube.corner_frame != frame){
 			cube.corner_frame = frame;
-			cube.value = function(&(cube.x), inSettings);
+			cube.value = function(&(cube.x), contextInfoForFunction);
 		}
 	}
 }
 
 
-float impCubeVolume::getXPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings){
+float impCubeVolume::getXPlus1Value(unsigned int index){
 	const unsigned int indexPlus1(index + 1);
 
 	// compute new value if index is at the edge of the volume
 	if((indexPlus1 % w_1) == 0){
 		float* pos = &(cubes[index].x);
 		pos[0] += cubewidth;
-		const float value(function(pos, inSettings));
+		const float value(function(pos, contextInfoForFunction));
 		pos[0] -= cubewidth;
 		return value;
 	}
@@ -766,19 +766,19 @@ float impCubeVolume::getXPlus1Value(unsigned int index, MicrocosmSaverSettings *
 
 	// compute new value
 	cube.corner_frame = frame;
-	cube.value = function(&(cube.x), inSettings);
+	cube.value = function(&(cube.x), contextInfoForFunction);
 	return cube.value;
 }
 
 
-float impCubeVolume::getYPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings){
+float impCubeVolume::getYPlus1Value(unsigned int index){
 	const unsigned int indexPlus1(index + w_1);
 
 	// compute new value if index is at the edge of the volume
 	if(indexPlus1 % w_1xh_1 < w_1){
 		float* pos = &(cubes[index].x);
 		pos[1] += cubewidth;
-		const float value(function(pos, inSettings));
+		const float value(function(pos, contextInfoForFunction));
 		pos[1] -= cubewidth;
 		return value;
 	}
@@ -790,19 +790,19 @@ float impCubeVolume::getYPlus1Value(unsigned int index, MicrocosmSaverSettings *
 
 	// compute new value
 	cube.corner_frame = frame;
-	cube.value = function(&(cube.x), inSettings);
+	cube.value = function(&(cube.x), contextInfoForFunction);
 	return cube.value;
 }
 
 
-float impCubeVolume::getZPlus1Value(unsigned int index, MicrocosmSaverSettings *inSettings){
+float impCubeVolume::getZPlus1Value(unsigned int index){
 	const unsigned int indexPlus1(index + w_1xh_1);
 
 	// compute new value if index is at the edge of the volume
 	if(indexPlus1 >= w_1xh_1xl_1){
 		float* pos = &(cubes[index].x);
 		pos[2] += cubewidth;
-		const float value(function(pos, inSettings));
+		const float value(function(pos, contextInfoForFunction));
 		pos[2] -= cubewidth;
 		return value;
 	}
@@ -814,7 +814,7 @@ float impCubeVolume::getZPlus1Value(unsigned int index, MicrocosmSaverSettings *
 
 	// compute new value
 	cube.corner_frame = frame;
-	cube.value = function(&(cube.x), inSettings);
+	cube.value = function(&(cube.x), contextInfoForFunction);
 	return cube.value;
 }
 
@@ -824,7 +824,7 @@ float impCubeVolume::getZPlus1Value(unsigned int index, MicrocosmSaverSettings *
 // only computing new values when necessary.  Many different combinations and blends of value
 // differences were tried out.  The final algorithm used here is not only the simplest possible, but
 // also the best looking.  Using more data to compute the normals always made the normals look worse.
-void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned int& index, MicrocosmSaverSettings *inSettings){
+void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned int& index){
 	float data[6];
 
 	// find position of vertex along this edge
@@ -849,9 +849,9 @@ void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned 
 				const float one_minus_t(1.0f - t);
 				const float& val(cubes[index].value);
 				const float& valp1(cubes[index+1].value);
-				data[0] = one_minus_t * (val - valp1) + t * (valp1 - getXPlus1Value(index+1, inSettings));
-				data[1] = one_minus_t * (val - getYPlus1Value(index, inSettings)) + t * (valp1 - getYPlus1Value(index+1, inSettings));
-				data[2] = one_minus_t * (val - getZPlus1Value(index, inSettings)) + t * (valp1 - getZPlus1Value(index+1, inSettings));
+				data[0] = one_minus_t * (val - valp1) + t * (valp1 - getXPlus1Value(index+1));
+				data[1] = one_minus_t * (val - getYPlus1Value(index)) + t * (valp1 - getYPlus1Value(index+1));
+				data[2] = one_minus_t * (val - getZPlus1Value(index)) + t * (valp1 - getZPlus1Value(index+1));
 				// For speed, do not normalize; use GL_NORMALIZE instead
 				// Add this vertex to surface
 				surface->addVertex(data);
@@ -879,9 +879,9 @@ void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned 
 				const float one_minus_t(1.0f - t);
 				const float& val(cubes[index].value);
 				const float& valp1(cubes[index+w_1].value);
-				data[0] = one_minus_t * (val - getXPlus1Value(index, inSettings)) + t * (valp1 - getXPlus1Value(index+w_1, inSettings));
-				data[1] = one_minus_t * (val - valp1) + t * (valp1 - getYPlus1Value(index+w_1, inSettings));
-				data[2] = one_minus_t * (val - getZPlus1Value(index, inSettings)) + t * (valp1 - getZPlus1Value(index+w_1, inSettings));
+				data[0] = one_minus_t * (val - getXPlus1Value(index)) + t * (valp1 - getXPlus1Value(index+w_1));
+				data[1] = one_minus_t * (val - valp1) + t * (valp1 - getYPlus1Value(index+w_1));
+				data[2] = one_minus_t * (val - getZPlus1Value(index)) + t * (valp1 - getZPlus1Value(index+w_1));
 				// For speed, do not normalize; use GL_NORMALIZE instead
 				// Add this vertex to surface
 				surface->addVertex(data);
@@ -909,9 +909,9 @@ void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned 
 				const float one_minus_t(1.0f - t);
 				const float& val(cubes[index].value);
 				const float& valp1(cubes[index+w_1xh_1].value);
-				data[0] = one_minus_t * (val - getXPlus1Value(index, inSettings)) + t * (valp1 - getXPlus1Value(index+w_1xh_1, inSettings));
-				data[1] = one_minus_t * (val - getYPlus1Value(index, inSettings)) + t * (valp1 - getYPlus1Value(index+w_1xh_1, inSettings));
-				data[2] = one_minus_t * (val - valp1) + t * (valp1 - getZPlus1Value(index+w_1xh_1, inSettings));
+				data[0] = one_minus_t * (val - getXPlus1Value(index)) + t * (valp1 - getXPlus1Value(index+w_1xh_1));
+				data[1] = one_minus_t * (val - getYPlus1Value(index)) + t * (valp1 - getYPlus1Value(index+w_1xh_1));
+				data[2] = one_minus_t * (val - valp1) + t * (valp1 - getZPlus1Value(index+w_1xh_1));
 				// For speed, do not normalize; use GL_NORMALIZE instead
 				// Add this vertex to surface
 				surface->addVertex(data);
@@ -927,16 +927,16 @@ void impCubeVolume::addVertexToSurface(const unsigned int& axis, const unsigned 
 	// First find normal vector origin value
 	float* pos = &(data[3]);
 	const float offset(cubewidth * 0.1f);
-	const float val(function(pos, inSettings));
+	const float val(function(pos, contextInfoForFunction));
 	// then find values at slight displacements and subtract
 	pos[0] -= offset;
-	data[0] = function(pos, inSettings) - val;
+	data[0] = function(pos, contextInfoForFunction) - val;
 	pos[0] += offset;
 	pos[1] -= offset;
-	data[1] = function(pos, inSettings) - val;
+	data[1] = function(pos, contextInfoForFunction) - val;
 	pos[1] += offset;
 	pos[2] -= offset;
-	data[2] = function(pos, inSettings) - val;
+	data[2] = function(pos, contextInfoForFunction) - val;
 	pos[2] += offset;
 	// For speed, do not normalize; use GL_NORMALIZE instead
 

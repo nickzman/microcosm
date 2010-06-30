@@ -186,7 +186,8 @@ pthread_mutex_t gT1EndMutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 // function for mode 0: single gizmo
-float surfaceFunction0(float* position, MicrocosmSaverSettings *inSettings){
+float surfaceFunction0(float* position, void *contextInfo){
+	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)contextInfo;
 	float value(0.0f);
 
 	for(unsigned int i=0; i<inSettings->gNumShapes; ++i)
@@ -197,7 +198,8 @@ float surfaceFunction0(float* position, MicrocosmSaverSettings *inSettings){
 
 
 // ... and with transition
-float surfaceFunctionTransition0(float* position, MicrocosmSaverSettings *inSettings){
+float surfaceFunctionTransition0(float* position, void *contextInfo){
+	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)contextInfo;
 	float value(0.0f);
 
 	for(unsigned int i=0; i<inSettings->gNumShapes; ++i)
@@ -216,7 +218,8 @@ float surfaceFunctionTransition0(float* position, MicrocosmSaverSettings *inSett
 
 
 // function for mode 1: kaleidoscope
-float surfaceFunction1(float* position, MicrocosmSaverSettings *inSettings){
+float surfaceFunction1(float* position, void *contextInfo){
+	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)contextInfo;
 	float value(0.0f);
 
 	for(unsigned int i=0; i<inSettings->gNumShapes; ++i)
@@ -238,7 +241,8 @@ float surfaceFunction1(float* position, MicrocosmSaverSettings *inSettings){
 
 
 // ... and with transition
-float surfaceFunctionTransition1(float* position, MicrocosmSaverSettings *inSettings){
+float surfaceFunctionTransition1(float* position, void *contextInfo){
+	MicrocosmSaverSettings *inSettings = (MicrocosmSaverSettings *)contextInfo;
 	float value(0.0f);
 
 	for(unsigned int i=0; i<inSettings->gNumShapes; ++i)
@@ -298,7 +302,7 @@ void* threadFunction0(void* arg){
 		pthread_cond_wait(&inSettings->gT0Start, &inSettings->gT0StartMutex);
 		// Compute surface
 		inSettings->computeTimer.tick();
-		inSettings->volume0->makeSurface(inSettings->crawlpoints, inSettings);
+		inSettings->volume0->makeSurface(inSettings->crawlpoints);
 		inSettings->computeTime += inSettings->computeTimer.tick();
 		// Wait until main loop is signalable, then tell it that this computation is complete.
 		pthread_mutex_lock(&inSettings->gT0EndMutex);
@@ -343,8 +347,8 @@ void* threadFunction1(void* arg){
 		pthread_cond_wait(&inSettings->gT1Start, &inSettings->gT1StartMutex);
 		// Compute surfaces
 		inSettings->computeTimer.tick();
-		inSettings->volume1->makeSurface(inSettings->crawlpoints, inSettings);
-		inSettings->volume2->makeSurface(inSettings->crawlpoints, inSettings);
+		inSettings->volume1->makeSurface(inSettings->crawlpoints);
+		inSettings->volume2->makeSurface(inSettings->crawlpoints);
 		inSettings->computeTime += inSettings->computeTimer.tick();
 		// Wait until main loop is signalable, then tell it that this computation is complete.
 		pthread_mutex_lock(&inSettings->gT1EndMutex);
@@ -591,12 +595,12 @@ void draw(MicrocosmSaverSettings *inSettings){
 	else{
 		inSettings->computeTimer.tick();
 
-		inSettings->volume0->makeSurface(inSettings->crawlpoints, inSettings);
+		inSettings->volume0->makeSurface(inSettings->crawlpoints);
 		// In kaleidoscope mode, also compute low-LOD surfaces.
 		// Low-LOD surfaces take some load off the graphics card because it won't have to draw as many triangles.
 		if(inSettings->gMode == 1){
-			inSettings->volume1->makeSurface(inSettings->crawlpoints, inSettings);
-			inSettings->volume2->makeSurface(inSettings->crawlpoints, inSettings);
+			inSettings->volume1->makeSurface(inSettings->crawlpoints);
+			inSettings->volume2->makeSurface(inSettings->crawlpoints);
 		}
 
 		inSettings->computeTime += inSettings->computeTimer.tick();
@@ -1097,6 +1101,7 @@ void initSaver(MicrocosmSaverSettings *inSettings){
 	inSettings->volume0->useFastNormals(false);
 	inSettings->volume0->setCrawlFromSides(true);
 	inSettings->volume0->setSurface(inSettings->volSurface0[0]);
+	inSettings->volume0->contextInfoForFunction = inSettings;
 
 	int v1res = inSettings->dResolution * 2 / 3;
 	if(v1res < 18)
@@ -1106,6 +1111,7 @@ void initSaver(MicrocosmSaverSettings *inSettings){
 	inSettings->volume1->useFastNormals(false);
 	inSettings->volume1->setCrawlFromSides(true);
 	inSettings->volume1->setSurface(inSettings->volSurface1[0]);
+	inSettings->volume1->contextInfoForFunction = inSettings;
 
 	int v2res = inSettings->dResolution / 3;
 	if(v2res < 16)
@@ -1115,6 +1121,7 @@ void initSaver(MicrocosmSaverSettings *inSettings){
 	inSettings->volume2->useFastNormals(false);
 	inSettings->volume2->setCrawlFromSides(true);
 	inSettings->volume2->setSurface(inSettings->volSurface2[0]);
+	inSettings->volume2->contextInfoForFunction = inSettings;
 
 	inSettings->tex1d = new Texture1D(inSettings->dColorSpeed);
 
