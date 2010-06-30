@@ -1,0 +1,675 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D255AC70486D3F9007BF209 /* Microcosm_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA80370C50100C91783 /* Microcosm_Prefix.pch */; };
+		8D255AC80486D3F9007BF209 /* MicrocosmView.h in Headers */ = {isa = PBXBuildFile; fileRef = F50079790118B23001CA0E54 /* MicrocosmView.h */; };
+		8D255ACA0486D3F9007BF209 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
+		8D255ACC0486D3F9007BF209 /* MicrocosmView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F500797A0118B23001CA0E54 /* MicrocosmView.mm */; };
+		8D255ACE0486D3F9007BF209 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		8D255ACF0486D3F9007BF209 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F27B2DFFEEEFEF11CA0E56 /* ScreenSaver.framework */; };
+		E065C85011D69EE200B7BD4D /* extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84A11D69EE100B7BD4D /* extensions.cpp */; };
+		E065C85111D69EE200B7BD4D /* Gizmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84B11D69EE100B7BD4D /* Gizmo.cpp */; };
+		E065C85211D69EE200B7BD4D /* Microcosm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84C11D69EE100B7BD4D /* Microcosm.cpp */; };
+		E065C85311D69EE200B7BD4D /* MirrorBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84D11D69EE100B7BD4D /* MirrorBox.cpp */; };
+		E065C85411D69EE200B7BD4D /* rsCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84E11D69EE100B7BD4D /* rsCamera.cpp */; };
+		E065C85511D69EE200B7BD4D /* Texture1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84F11D69EE200B7BD4D /* Texture1D.cpp */; };
+		E065C87511D69F6A00B7BD4D /* Brain.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85711D69F6A00B7BD4D /* Brain.h */; };
+		E065C87611D69F6A00B7BD4D /* Cube.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85811D69F6A00B7BD4D /* Cube.h */; };
+		E065C87711D69F6A00B7BD4D /* CubesAndCapsules.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85911D69F6A00B7BD4D /* CubesAndCapsules.h */; };
+		E065C87811D69F6A00B7BD4D /* Cylinder.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85A11D69F6A00B7BD4D /* Cylinder.h */; };
+		E065C87911D69F6A00B7BD4D /* extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85B11D69F6A00B7BD4D /* extensions.h */; };
+		E065C87A11D69F6A00B7BD4D /* Flower.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85C11D69F6A00B7BD4D /* Flower.h */; };
+		E065C87B11D69F6A00B7BD4D /* Gizmo.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85D11D69F6A00B7BD4D /* Gizmo.h */; };
+		E065C87C11D69F6A00B7BD4D /* Grinder.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85E11D69F6A00B7BD4D /* Grinder.h */; };
+		E065C87D11D69F6A00B7BD4D /* KnotAndSpheres.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C85F11D69F6A00B7BD4D /* KnotAndSpheres.h */; };
+		E065C87E11D69F6A00B7BD4D /* KnotAndTorus.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86011D69F6A00B7BD4D /* KnotAndTorus.h */; };
+		E065C87F11D69F6A00B7BD4D /* Kube.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86111D69F6A00B7BD4D /* Kube.h */; };
+		E065C88011D69F6A00B7BD4D /* Kube2.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86211D69F6A00B7BD4D /* Kube2.h */; };
+		E065C88111D69F6A00B7BD4D /* Kube3.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86311D69F6A00B7BD4D /* Kube3.h */; };
+		E065C88211D69F6A00B7BD4D /* Kube4.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86411D69F6A00B7BD4D /* Kube4.h */; };
+		E065C88311D69F6A00B7BD4D /* Metaballs.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86511D69F6A00B7BD4D /* Metaballs.h */; };
+		E065C88411D69F6A00B7BD4D /* MirrorBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86611D69F6A00B7BD4D /* MirrorBox.h */; };
+		E065C88511D69F6A00B7BD4D /* Octahedron.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86711D69F6A00B7BD4D /* Octahedron.h */; };
+		E065C88611D69F6A00B7BD4D /* Orbit.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86811D69F6A00B7BD4D /* Orbit.h */; };
+		E065C88711D69F6A00B7BD4D /* RingOfTori.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86911D69F6A00B7BD4D /* RingOfTori.h */; };
+		E065C88811D69F6A00B7BD4D /* Rings.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86A11D69F6A00B7BD4D /* Rings.h */; };
+		E065C88911D69F6A00B7BD4D /* rsCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86B11D69F6A00B7BD4D /* rsCamera.h */; };
+		E065C88A11D69F6A00B7BD4D /* shaders.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86C11D69F6A00B7BD4D /* shaders.h */; };
+		E065C88B11D69F6A00B7BD4D /* SpheresAndCapsules.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86D11D69F6A00B7BD4D /* SpheresAndCapsules.h */; };
+		E065C88C11D69F6A00B7BD4D /* StringOfEllipsoids.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86E11D69F6A00B7BD4D /* StringOfEllipsoids.h */; };
+		E065C88D11D69F6A00B7BD4D /* Tennis.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C86F11D69F6A00B7BD4D /* Tennis.h */; };
+		E065C88E11D69F6A00B7BD4D /* Tetrahedron.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C87011D69F6A00B7BD4D /* Tetrahedron.h */; };
+		E065C88F11D69F6A00B7BD4D /* Texture1D.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C87111D69F6A00B7BD4D /* Texture1D.h */; };
+		E065C89011D69F6A00B7BD4D /* TorusBox.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C87211D69F6A00B7BD4D /* TorusBox.h */; };
+		E065C89111D69F6A00B7BD4D /* TriangleOfSpheres.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C87311D69F6A00B7BD4D /* TriangleOfSpheres.h */; };
+		E065C89211D69F6A00B7BD4D /* UFO.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C87411D69F6A00B7BD4D /* UFO.h */; };
+		E065C8A311D6A08900B7BD4D /* impCapsule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89811D6A08900B7BD4D /* impCapsule.cpp */; };
+		E065C8A411D6A08900B7BD4D /* impCubeTables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89911D6A08900B7BD4D /* impCubeTables.cpp */; };
+		E065C8A511D6A08900B7BD4D /* impCubeVolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89A11D6A08900B7BD4D /* impCubeVolume.cpp */; };
+		E065C8A611D6A08900B7BD4D /* impEllipsoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89B11D6A08900B7BD4D /* impEllipsoid.cpp */; };
+		E065C8A711D6A08900B7BD4D /* impHexahedron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89C11D6A08900B7BD4D /* impHexahedron.cpp */; };
+		E065C8A811D6A08900B7BD4D /* impKnot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89D11D6A08900B7BD4D /* impKnot.cpp */; };
+		E065C8A911D6A08900B7BD4D /* impRoundedHexahedron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89E11D6A08900B7BD4D /* impRoundedHexahedron.cpp */; };
+		E065C8AA11D6A08900B7BD4D /* impShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C89F11D6A08900B7BD4D /* impShape.cpp */; };
+		E065C8AB11D6A08900B7BD4D /* impSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8A011D6A08900B7BD4D /* impSphere.cpp */; };
+		E065C8AC11D6A08900B7BD4D /* impSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8A111D6A08900B7BD4D /* impSurface.cpp */; };
+		E065C8AD11D6A08900B7BD4D /* impTorus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8A211D6A08900B7BD4D /* impTorus.cpp */; };
+		E065C8BA11D6A09C00B7BD4D /* impCapsule.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8AE11D6A09C00B7BD4D /* impCapsule.h */; };
+		E065C8BB11D6A09C00B7BD4D /* impCrawlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8AF11D6A09C00B7BD4D /* impCrawlPoint.h */; };
+		E065C8BC11D6A09C00B7BD4D /* impCubeTables.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B011D6A09C00B7BD4D /* impCubeTables.h */; };
+		E065C8BD11D6A09C00B7BD4D /* impCubeVolume.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B111D6A09C00B7BD4D /* impCubeVolume.h */; };
+		E065C8BE11D6A09C00B7BD4D /* impEllipsoid.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B211D6A09C00B7BD4D /* impEllipsoid.h */; };
+		E065C8BF11D6A09C00B7BD4D /* impHexahedron.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B311D6A09C00B7BD4D /* impHexahedron.h */; };
+		E065C8C011D6A09C00B7BD4D /* impKnot.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B411D6A09C00B7BD4D /* impKnot.h */; };
+		E065C8C111D6A09C00B7BD4D /* impRoundedHexahedron.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B511D6A09C00B7BD4D /* impRoundedHexahedron.h */; };
+		E065C8C211D6A09C00B7BD4D /* impShape.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B611D6A09C00B7BD4D /* impShape.h */; };
+		E065C8C311D6A09C00B7BD4D /* impSphere.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B711D6A09C00B7BD4D /* impSphere.h */; };
+		E065C8C411D6A09C00B7BD4D /* impSurface.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B811D6A09C00B7BD4D /* impSurface.h */; };
+		E065C8C511D6A09C00B7BD4D /* impTorus.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8B911D6A09C00B7BD4D /* impTorus.h */; };
+		E065C8E011D6A1F600B7BD4D /* rsMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DA11D6A1F600B7BD4D /* rsMath.h */; };
+		E065C8E111D6A1F600B7BD4D /* rsMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DB11D6A1F600B7BD4D /* rsMatrix.h */; };
+		E065C8E211D6A1F600B7BD4D /* rsQuat.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DC11D6A1F600B7BD4D /* rsQuat.h */; };
+		E065C8E311D6A1F600B7BD4D /* rsTrigonometry.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DD11D6A1F600B7BD4D /* rsTrigonometry.h */; };
+		E065C8E411D6A1F600B7BD4D /* rsVec.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DE11D6A1F600B7BD4D /* rsVec.h */; };
+		E065C8E511D6A1F600B7BD4D /* rsVec4.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C8DF11D6A1F600B7BD4D /* rsVec4.h */; };
+		E065C8EA11D6A21000B7BD4D /* rsMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8E611D6A21000B7BD4D /* rsMatrix.cpp */; };
+		E065C8EB11D6A21000B7BD4D /* rsQuat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8E711D6A21000B7BD4D /* rsQuat.cpp */; };
+		E065C8EC11D6A21000B7BD4D /* rsVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8E811D6A21000B7BD4D /* rsVec.cpp */; };
+		E065C8ED11D6A21000B7BD4D /* rsVec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C8E911D6A21000B7BD4D /* rsVec4.cpp */; };
+		E065C91D11D6A91300B7BD4D /* rsTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C91C11D6A91300B7BD4D /* rsTimer.h */; };
+		E065C92E11D6AA0400B7BD4D /* rsText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C92D11D6AA0400B7BD4D /* rsText.cpp */; };
+		E065C93011D6AA1400B7BD4D /* rsText.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C92F11D6AA1400B7BD4D /* rsText.h */; };
+		E065C94511D6AC5900B7BD4D /* Rgbhsl.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C94411D6AC5900B7BD4D /* Rgbhsl.h */; };
+		E065C94711D6AC6600B7BD4D /* Rgbhsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C94611D6AC6600B7BD4D /* Rgbhsl.cpp */; };
+		E065C95311D6ACB600B7BD4D /* fontmap.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C95211D6ACB600B7BD4D /* fontmap.h */; };
+		E065C95811D6ACFB00B7BD4D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E065C95711D6ACFB00B7BD4D /* OpenGL.framework */; };
+		E065C96811D6B8B200B7BD4D /* Microcosm.h in Headers */ = {isa = PBXBuildFile; fileRef = E065C96711D6B8B200B7BD4D /* Microcosm.h */; };
+		E0D706D811D98A6300FE176A /* ConfigureSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = E0D706D611D98A6300FE176A /* ConfigureSheet.nib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		06F27B2DFFEEEFEF11CA0E56 /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = /System/Library/Frameworks/ScreenSaver.framework; sourceTree = "<absolute>"; };
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCFA80370C50100C91783 /* Microcosm_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Microcosm_Prefix.pch; sourceTree = "<group>"; };
+		8D255AD20486D3F9007BF209 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D255AD30486D3F9007BF209 /* Microcosm.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Microcosm.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		E065C84A11D69EE100B7BD4D /* extensions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = extensions.cpp; sourceTree = "<group>"; };
+		E065C84B11D69EE100B7BD4D /* Gizmo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmo.cpp; sourceTree = "<group>"; };
+		E065C84C11D69EE100B7BD4D /* Microcosm.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Microcosm.cpp; sourceTree = "<group>"; };
+		E065C84D11D69EE100B7BD4D /* MirrorBox.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MirrorBox.cpp; sourceTree = "<group>"; };
+		E065C84E11D69EE100B7BD4D /* rsCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsCamera.cpp; sourceTree = "<group>"; };
+		E065C84F11D69EE200B7BD4D /* Texture1D.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Texture1D.cpp; sourceTree = "<group>"; };
+		E065C85711D69F6A00B7BD4D /* Brain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Brain.h; sourceTree = "<group>"; };
+		E065C85811D69F6A00B7BD4D /* Cube.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
+		E065C85911D69F6A00B7BD4D /* CubesAndCapsules.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CubesAndCapsules.h; sourceTree = "<group>"; };
+		E065C85A11D69F6A00B7BD4D /* Cylinder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
+		E065C85B11D69F6A00B7BD4D /* extensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = extensions.h; sourceTree = "<group>"; };
+		E065C85C11D69F6A00B7BD4D /* Flower.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Flower.h; sourceTree = "<group>"; };
+		E065C85D11D69F6A00B7BD4D /* Gizmo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Gizmo.h; sourceTree = "<group>"; };
+		E065C85E11D69F6A00B7BD4D /* Grinder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Grinder.h; sourceTree = "<group>"; };
+		E065C85F11D69F6A00B7BD4D /* KnotAndSpheres.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KnotAndSpheres.h; sourceTree = "<group>"; };
+		E065C86011D69F6A00B7BD4D /* KnotAndTorus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KnotAndTorus.h; sourceTree = "<group>"; };
+		E065C86111D69F6A00B7BD4D /* Kube.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Kube.h; sourceTree = "<group>"; };
+		E065C86211D69F6A00B7BD4D /* Kube2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Kube2.h; sourceTree = "<group>"; };
+		E065C86311D69F6A00B7BD4D /* Kube3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Kube3.h; sourceTree = "<group>"; };
+		E065C86411D69F6A00B7BD4D /* Kube4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Kube4.h; sourceTree = "<group>"; };
+		E065C86511D69F6A00B7BD4D /* Metaballs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Metaballs.h; sourceTree = "<group>"; };
+		E065C86611D69F6A00B7BD4D /* MirrorBox.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MirrorBox.h; sourceTree = "<group>"; };
+		E065C86711D69F6A00B7BD4D /* Octahedron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Octahedron.h; sourceTree = "<group>"; };
+		E065C86811D69F6A00B7BD4D /* Orbit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Orbit.h; sourceTree = "<group>"; };
+		E065C86911D69F6A00B7BD4D /* RingOfTori.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RingOfTori.h; sourceTree = "<group>"; };
+		E065C86A11D69F6A00B7BD4D /* Rings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Rings.h; sourceTree = "<group>"; };
+		E065C86B11D69F6A00B7BD4D /* rsCamera.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsCamera.h; sourceTree = "<group>"; };
+		E065C86C11D69F6A00B7BD4D /* shaders.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = shaders.h; sourceTree = "<group>"; };
+		E065C86D11D69F6A00B7BD4D /* SpheresAndCapsules.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SpheresAndCapsules.h; sourceTree = "<group>"; };
+		E065C86E11D69F6A00B7BD4D /* StringOfEllipsoids.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringOfEllipsoids.h; sourceTree = "<group>"; };
+		E065C86F11D69F6A00B7BD4D /* Tennis.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Tennis.h; sourceTree = "<group>"; };
+		E065C87011D69F6A00B7BD4D /* Tetrahedron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Tetrahedron.h; sourceTree = "<group>"; };
+		E065C87111D69F6A00B7BD4D /* Texture1D.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Texture1D.h; sourceTree = "<group>"; };
+		E065C87211D69F6A00B7BD4D /* TorusBox.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TorusBox.h; sourceTree = "<group>"; };
+		E065C87311D69F6A00B7BD4D /* TriangleOfSpheres.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TriangleOfSpheres.h; sourceTree = "<group>"; };
+		E065C87411D69F6A00B7BD4D /* UFO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UFO.h; sourceTree = "<group>"; };
+		E065C89811D6A08900B7BD4D /* impCapsule.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impCapsule.cpp; sourceTree = "<group>"; };
+		E065C89911D6A08900B7BD4D /* impCubeTables.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impCubeTables.cpp; sourceTree = "<group>"; };
+		E065C89A11D6A08900B7BD4D /* impCubeVolume.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impCubeVolume.cpp; sourceTree = "<group>"; };
+		E065C89B11D6A08900B7BD4D /* impEllipsoid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impEllipsoid.cpp; sourceTree = "<group>"; };
+		E065C89C11D6A08900B7BD4D /* impHexahedron.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impHexahedron.cpp; sourceTree = "<group>"; };
+		E065C89D11D6A08900B7BD4D /* impKnot.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impKnot.cpp; sourceTree = "<group>"; };
+		E065C89E11D6A08900B7BD4D /* impRoundedHexahedron.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impRoundedHexahedron.cpp; sourceTree = "<group>"; };
+		E065C89F11D6A08900B7BD4D /* impShape.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impShape.cpp; sourceTree = "<group>"; };
+		E065C8A011D6A08900B7BD4D /* impSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impSphere.cpp; sourceTree = "<group>"; };
+		E065C8A111D6A08900B7BD4D /* impSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impSurface.cpp; sourceTree = "<group>"; };
+		E065C8A211D6A08900B7BD4D /* impTorus.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = impTorus.cpp; sourceTree = "<group>"; };
+		E065C8AE11D6A09C00B7BD4D /* impCapsule.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impCapsule.h; sourceTree = "<group>"; };
+		E065C8AF11D6A09C00B7BD4D /* impCrawlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impCrawlPoint.h; sourceTree = "<group>"; };
+		E065C8B011D6A09C00B7BD4D /* impCubeTables.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impCubeTables.h; sourceTree = "<group>"; };
+		E065C8B111D6A09C00B7BD4D /* impCubeVolume.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impCubeVolume.h; sourceTree = "<group>"; };
+		E065C8B211D6A09C00B7BD4D /* impEllipsoid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impEllipsoid.h; sourceTree = "<group>"; };
+		E065C8B311D6A09C00B7BD4D /* impHexahedron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impHexahedron.h; sourceTree = "<group>"; };
+		E065C8B411D6A09C00B7BD4D /* impKnot.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impKnot.h; sourceTree = "<group>"; };
+		E065C8B511D6A09C00B7BD4D /* impRoundedHexahedron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impRoundedHexahedron.h; sourceTree = "<group>"; };
+		E065C8B611D6A09C00B7BD4D /* impShape.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impShape.h; sourceTree = "<group>"; };
+		E065C8B711D6A09C00B7BD4D /* impSphere.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impSphere.h; sourceTree = "<group>"; };
+		E065C8B811D6A09C00B7BD4D /* impSurface.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impSurface.h; sourceTree = "<group>"; };
+		E065C8B911D6A09C00B7BD4D /* impTorus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = impTorus.h; sourceTree = "<group>"; };
+		E065C8DA11D6A1F600B7BD4D /* rsMath.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsMath.h; sourceTree = "<group>"; };
+		E065C8DB11D6A1F600B7BD4D /* rsMatrix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsMatrix.h; sourceTree = "<group>"; };
+		E065C8DC11D6A1F600B7BD4D /* rsQuat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsQuat.h; sourceTree = "<group>"; };
+		E065C8DD11D6A1F600B7BD4D /* rsTrigonometry.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsTrigonometry.h; sourceTree = "<group>"; };
+		E065C8DE11D6A1F600B7BD4D /* rsVec.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsVec.h; sourceTree = "<group>"; };
+		E065C8DF11D6A1F600B7BD4D /* rsVec4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsVec4.h; sourceTree = "<group>"; };
+		E065C8E611D6A21000B7BD4D /* rsMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsMatrix.cpp; sourceTree = "<group>"; };
+		E065C8E711D6A21000B7BD4D /* rsQuat.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsQuat.cpp; sourceTree = "<group>"; };
+		E065C8E811D6A21000B7BD4D /* rsVec.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsVec.cpp; sourceTree = "<group>"; };
+		E065C8E911D6A21000B7BD4D /* rsVec4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsVec4.cpp; sourceTree = "<group>"; };
+		E065C91C11D6A91300B7BD4D /* rsTimer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsTimer.h; sourceTree = "<group>"; };
+		E065C92D11D6AA0400B7BD4D /* rsText.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rsText.cpp; sourceTree = "<group>"; };
+		E065C92F11D6AA1400B7BD4D /* rsText.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rsText.h; sourceTree = "<group>"; };
+		E065C94411D6AC5900B7BD4D /* Rgbhsl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Rgbhsl.h; sourceTree = "<group>"; };
+		E065C94611D6AC6600B7BD4D /* Rgbhsl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Rgbhsl.cpp; sourceTree = "<group>"; };
+		E065C95211D6ACB600B7BD4D /* fontmap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = fontmap.h; sourceTree = "<group>"; };
+		E065C95711D6ACFB00B7BD4D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E065C96711D6B8B200B7BD4D /* Microcosm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Microcosm.h; sourceTree = "<group>"; };
+		E0D706D711D98A6300FE176A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/ConfigureSheet.nib; sourceTree = "<group>"; };
+		F50079790118B23001CA0E54 /* MicrocosmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicrocosmView.h; sourceTree = "<group>"; };
+		F500797A0118B23001CA0E54 /* MicrocosmView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MicrocosmView.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D255ACD0486D3F9007BF209 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D255ACE0486D3F9007BF209 /* Cocoa.framework in Frameworks */,
+				8D255ACF0486D3F9007BF209 /* ScreenSaver.framework in Frameworks */,
+				E065C95811D6ACFB00B7BD4D /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* Microcosm */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32DBCFA70370C4F300C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = Microcosm;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E0D706D611D98A6300FE176A /* ConfigureSheet.nib */,
+				8D255AD20486D3F9007BF209 /* Info.plist */,
+				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F50079790118B23001CA0E54 /* MicrocosmView.h */,
+				F500797A0118B23001CA0E54 /* MicrocosmView.mm */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				06F27B2DFFEEEFEF11CA0E56 /* ScreenSaver.framework */,
+				E065C95711D6ACFB00B7BD4D /* OpenGL.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D255AD30486D3F9007BF209 /* Microcosm.saver */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32DBCFA70370C4F300C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E065C89611D69FCA00B7BD4D /* Implicit */,
+				E065C89711D69FD400B7BD4D /* Microcosm */,
+				E065C8D911D6A1BC00B7BD4D /* rsMath */,
+				E065C92C11D6A9E700B7BD4D /* rsText */,
+				E065C91511D6A8B800B7BD4D /* Rgbhsl */,
+				E065C91B11D6A8F700B7BD4D /* util */,
+				32DBCFA80370C50100C91783 /* Microcosm_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		E065C89611D69FCA00B7BD4D /* Implicit */ = {
+			isa = PBXGroup;
+			children = (
+				E065C8AE11D6A09C00B7BD4D /* impCapsule.h */,
+				E065C89811D6A08900B7BD4D /* impCapsule.cpp */,
+				E065C8AF11D6A09C00B7BD4D /* impCrawlPoint.h */,
+				E065C8B011D6A09C00B7BD4D /* impCubeTables.h */,
+				E065C89911D6A08900B7BD4D /* impCubeTables.cpp */,
+				E065C8B111D6A09C00B7BD4D /* impCubeVolume.h */,
+				E065C89A11D6A08900B7BD4D /* impCubeVolume.cpp */,
+				E065C8B211D6A09C00B7BD4D /* impEllipsoid.h */,
+				E065C89B11D6A08900B7BD4D /* impEllipsoid.cpp */,
+				E065C8B311D6A09C00B7BD4D /* impHexahedron.h */,
+				E065C89C11D6A08900B7BD4D /* impHexahedron.cpp */,
+				E065C8B411D6A09C00B7BD4D /* impKnot.h */,
+				E065C89D11D6A08900B7BD4D /* impKnot.cpp */,
+				E065C8B511D6A09C00B7BD4D /* impRoundedHexahedron.h */,
+				E065C89E11D6A08900B7BD4D /* impRoundedHexahedron.cpp */,
+				E065C8B611D6A09C00B7BD4D /* impShape.h */,
+				E065C89F11D6A08900B7BD4D /* impShape.cpp */,
+				E065C8B711D6A09C00B7BD4D /* impSphere.h */,
+				E065C8A011D6A08900B7BD4D /* impSphere.cpp */,
+				E065C8B811D6A09C00B7BD4D /* impSurface.h */,
+				E065C8A111D6A08900B7BD4D /* impSurface.cpp */,
+				E065C8B911D6A09C00B7BD4D /* impTorus.h */,
+				E065C8A211D6A08900B7BD4D /* impTorus.cpp */,
+			);
+			path = Implicit;
+			sourceTree = "<group>";
+		};
+		E065C89711D69FD400B7BD4D /* Microcosm */ = {
+			isa = PBXGroup;
+			children = (
+				E065C85711D69F6A00B7BD4D /* Brain.h */,
+				E065C85811D69F6A00B7BD4D /* Cube.h */,
+				E065C85911D69F6A00B7BD4D /* CubesAndCapsules.h */,
+				E065C85A11D69F6A00B7BD4D /* Cylinder.h */,
+				E065C85B11D69F6A00B7BD4D /* extensions.h */,
+				E065C84A11D69EE100B7BD4D /* extensions.cpp */,
+				E065C85C11D69F6A00B7BD4D /* Flower.h */,
+				E065C85D11D69F6A00B7BD4D /* Gizmo.h */,
+				E065C84B11D69EE100B7BD4D /* Gizmo.cpp */,
+				E065C85E11D69F6A00B7BD4D /* Grinder.h */,
+				E065C85F11D69F6A00B7BD4D /* KnotAndSpheres.h */,
+				E065C86011D69F6A00B7BD4D /* KnotAndTorus.h */,
+				E065C86111D69F6A00B7BD4D /* Kube.h */,
+				E065C86211D69F6A00B7BD4D /* Kube2.h */,
+				E065C86311D69F6A00B7BD4D /* Kube3.h */,
+				E065C86411D69F6A00B7BD4D /* Kube4.h */,
+				E065C86511D69F6A00B7BD4D /* Metaballs.h */,
+				E065C96711D6B8B200B7BD4D /* Microcosm.h */,
+				E065C84C11D69EE100B7BD4D /* Microcosm.cpp */,
+				E065C86611D69F6A00B7BD4D /* MirrorBox.h */,
+				E065C84D11D69EE100B7BD4D /* MirrorBox.cpp */,
+				E065C86711D69F6A00B7BD4D /* Octahedron.h */,
+				E065C86811D69F6A00B7BD4D /* Orbit.h */,
+				E065C86911D69F6A00B7BD4D /* RingOfTori.h */,
+				E065C86A11D69F6A00B7BD4D /* Rings.h */,
+				E065C86B11D69F6A00B7BD4D /* rsCamera.h */,
+				E065C84E11D69EE100B7BD4D /* rsCamera.cpp */,
+				E065C86C11D69F6A00B7BD4D /* shaders.h */,
+				E065C86D11D69F6A00B7BD4D /* SpheresAndCapsules.h */,
+				E065C86E11D69F6A00B7BD4D /* StringOfEllipsoids.h */,
+				E065C86F11D69F6A00B7BD4D /* Tennis.h */,
+				E065C87011D69F6A00B7BD4D /* Tetrahedron.h */,
+				E065C87111D69F6A00B7BD4D /* Texture1D.h */,
+				E065C84F11D69EE200B7BD4D /* Texture1D.cpp */,
+				E065C87211D69F6A00B7BD4D /* TorusBox.h */,
+				E065C87311D69F6A00B7BD4D /* TriangleOfSpheres.h */,
+				E065C87411D69F6A00B7BD4D /* UFO.h */,
+			);
+			path = Microcosm;
+			sourceTree = "<group>";
+		};
+		E065C8D911D6A1BC00B7BD4D /* rsMath */ = {
+			isa = PBXGroup;
+			children = (
+				E065C8DA11D6A1F600B7BD4D /* rsMath.h */,
+				E065C8DB11D6A1F600B7BD4D /* rsMatrix.h */,
+				E065C8E611D6A21000B7BD4D /* rsMatrix.cpp */,
+				E065C8DC11D6A1F600B7BD4D /* rsQuat.h */,
+				E065C8E711D6A21000B7BD4D /* rsQuat.cpp */,
+				E065C8DD11D6A1F600B7BD4D /* rsTrigonometry.h */,
+				E065C8DE11D6A1F600B7BD4D /* rsVec.h */,
+				E065C8E811D6A21000B7BD4D /* rsVec.cpp */,
+				E065C8DF11D6A1F600B7BD4D /* rsVec4.h */,
+				E065C8E911D6A21000B7BD4D /* rsVec4.cpp */,
+			);
+			path = rsMath;
+			sourceTree = "<group>";
+		};
+		E065C91511D6A8B800B7BD4D /* Rgbhsl */ = {
+			isa = PBXGroup;
+			children = (
+				E065C94411D6AC5900B7BD4D /* Rgbhsl.h */,
+				E065C94611D6AC6600B7BD4D /* Rgbhsl.cpp */,
+			);
+			path = Rgbhsl;
+			sourceTree = "<group>";
+		};
+		E065C91B11D6A8F700B7BD4D /* util */ = {
+			isa = PBXGroup;
+			children = (
+				E065C91C11D6A91300B7BD4D /* rsTimer.h */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		E065C92C11D6A9E700B7BD4D /* rsText */ = {
+			isa = PBXGroup;
+			children = (
+				E065C95211D6ACB600B7BD4D /* fontmap.h */,
+				E065C92F11D6AA1400B7BD4D /* rsText.h */,
+				E065C92D11D6AA0400B7BD4D /* rsText.cpp */,
+			);
+			path = rsText;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8D255AC60486D3F9007BF209 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D255AC70486D3F9007BF209 /* Microcosm_Prefix.pch in Headers */,
+				8D255AC80486D3F9007BF209 /* MicrocosmView.h in Headers */,
+				E065C87511D69F6A00B7BD4D /* Brain.h in Headers */,
+				E065C87611D69F6A00B7BD4D /* Cube.h in Headers */,
+				E065C87711D69F6A00B7BD4D /* CubesAndCapsules.h in Headers */,
+				E065C87811D69F6A00B7BD4D /* Cylinder.h in Headers */,
+				E065C87911D69F6A00B7BD4D /* extensions.h in Headers */,
+				E065C87A11D69F6A00B7BD4D /* Flower.h in Headers */,
+				E065C87B11D69F6A00B7BD4D /* Gizmo.h in Headers */,
+				E065C87C11D69F6A00B7BD4D /* Grinder.h in Headers */,
+				E065C87D11D69F6A00B7BD4D /* KnotAndSpheres.h in Headers */,
+				E065C87E11D69F6A00B7BD4D /* KnotAndTorus.h in Headers */,
+				E065C87F11D69F6A00B7BD4D /* Kube.h in Headers */,
+				E065C88011D69F6A00B7BD4D /* Kube2.h in Headers */,
+				E065C88111D69F6A00B7BD4D /* Kube3.h in Headers */,
+				E065C88211D69F6A00B7BD4D /* Kube4.h in Headers */,
+				E065C88311D69F6A00B7BD4D /* Metaballs.h in Headers */,
+				E065C88411D69F6A00B7BD4D /* MirrorBox.h in Headers */,
+				E065C88511D69F6A00B7BD4D /* Octahedron.h in Headers */,
+				E065C88611D69F6A00B7BD4D /* Orbit.h in Headers */,
+				E065C88711D69F6A00B7BD4D /* RingOfTori.h in Headers */,
+				E065C88811D69F6A00B7BD4D /* Rings.h in Headers */,
+				E065C88911D69F6A00B7BD4D /* rsCamera.h in Headers */,
+				E065C88A11D69F6A00B7BD4D /* shaders.h in Headers */,
+				E065C88B11D69F6A00B7BD4D /* SpheresAndCapsules.h in Headers */,
+				E065C88C11D69F6A00B7BD4D /* StringOfEllipsoids.h in Headers */,
+				E065C88D11D69F6A00B7BD4D /* Tennis.h in Headers */,
+				E065C88E11D69F6A00B7BD4D /* Tetrahedron.h in Headers */,
+				E065C88F11D69F6A00B7BD4D /* Texture1D.h in Headers */,
+				E065C89011D69F6A00B7BD4D /* TorusBox.h in Headers */,
+				E065C89111D69F6A00B7BD4D /* TriangleOfSpheres.h in Headers */,
+				E065C89211D69F6A00B7BD4D /* UFO.h in Headers */,
+				E065C8BA11D6A09C00B7BD4D /* impCapsule.h in Headers */,
+				E065C8BB11D6A09C00B7BD4D /* impCrawlPoint.h in Headers */,
+				E065C8BC11D6A09C00B7BD4D /* impCubeTables.h in Headers */,
+				E065C8BD11D6A09C00B7BD4D /* impCubeVolume.h in Headers */,
+				E065C8BE11D6A09C00B7BD4D /* impEllipsoid.h in Headers */,
+				E065C8BF11D6A09C00B7BD4D /* impHexahedron.h in Headers */,
+				E065C8C011D6A09C00B7BD4D /* impKnot.h in Headers */,
+				E065C8C111D6A09C00B7BD4D /* impRoundedHexahedron.h in Headers */,
+				E065C8C211D6A09C00B7BD4D /* impShape.h in Headers */,
+				E065C8C311D6A09C00B7BD4D /* impSphere.h in Headers */,
+				E065C8C411D6A09C00B7BD4D /* impSurface.h in Headers */,
+				E065C8C511D6A09C00B7BD4D /* impTorus.h in Headers */,
+				E065C8E011D6A1F600B7BD4D /* rsMath.h in Headers */,
+				E065C8E111D6A1F600B7BD4D /* rsMatrix.h in Headers */,
+				E065C8E211D6A1F600B7BD4D /* rsQuat.h in Headers */,
+				E065C8E311D6A1F600B7BD4D /* rsTrigonometry.h in Headers */,
+				E065C8E411D6A1F600B7BD4D /* rsVec.h in Headers */,
+				E065C8E511D6A1F600B7BD4D /* rsVec4.h in Headers */,
+				E065C91D11D6A91300B7BD4D /* rsTimer.h in Headers */,
+				E065C93011D6AA1400B7BD4D /* rsText.h in Headers */,
+				E065C94511D6AC5900B7BD4D /* Rgbhsl.h in Headers */,
+				E065C95311D6ACB600B7BD4D /* fontmap.h in Headers */,
+				E065C96811D6B8B200B7BD4D /* Microcosm.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D255AC50486D3F9007BF209 /* Microcosm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF7AD72D08BB986600CE4634 /* Build configuration list for PBXNativeTarget "Microcosm" */;
+			buildPhases = (
+				8D255AC60486D3F9007BF209 /* Headers */,
+				8D255AC90486D3F9007BF209 /* Resources */,
+				8D255ACB0486D3F9007BF209 /* Sources */,
+				8D255ACD0486D3F9007BF209 /* Frameworks */,
+				8D255AD00486D3F9007BF209 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Microcosm;
+			productInstallPath = "$(HOME)/Library/Screen Savers";
+			productName = Microcosm;
+			productReference = 8D255AD30486D3F9007BF209 /* Microcosm.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = EF7AD73108BB986600CE4634 /* Build configuration list for PBXProject "Microcosm" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* Microcosm */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D255AC50486D3F9007BF209 /* Microcosm */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D255AC90486D3F9007BF209 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D255ACA0486D3F9007BF209 /* InfoPlist.strings in Resources */,
+				E0D706D811D98A6300FE176A /* ConfigureSheet.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8D255AD00486D3F9007BF209 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D255ACB0486D3F9007BF209 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D255ACC0486D3F9007BF209 /* MicrocosmView.mm in Sources */,
+				E065C85011D69EE200B7BD4D /* extensions.cpp in Sources */,
+				E065C85111D69EE200B7BD4D /* Gizmo.cpp in Sources */,
+				E065C85211D69EE200B7BD4D /* Microcosm.cpp in Sources */,
+				E065C85311D69EE200B7BD4D /* MirrorBox.cpp in Sources */,
+				E065C85411D69EE200B7BD4D /* rsCamera.cpp in Sources */,
+				E065C85511D69EE200B7BD4D /* Texture1D.cpp in Sources */,
+				E065C8A311D6A08900B7BD4D /* impCapsule.cpp in Sources */,
+				E065C8A411D6A08900B7BD4D /* impCubeTables.cpp in Sources */,
+				E065C8A511D6A08900B7BD4D /* impCubeVolume.cpp in Sources */,
+				E065C8A611D6A08900B7BD4D /* impEllipsoid.cpp in Sources */,
+				E065C8A711D6A08900B7BD4D /* impHexahedron.cpp in Sources */,
+				E065C8A811D6A08900B7BD4D /* impKnot.cpp in Sources */,
+				E065C8A911D6A08900B7BD4D /* impRoundedHexahedron.cpp in Sources */,
+				E065C8AA11D6A08900B7BD4D /* impShape.cpp in Sources */,
+				E065C8AB11D6A08900B7BD4D /* impSphere.cpp in Sources */,
+				E065C8AC11D6A08900B7BD4D /* impSurface.cpp in Sources */,
+				E065C8AD11D6A08900B7BD4D /* impTorus.cpp in Sources */,
+				E065C8EA11D6A21000B7BD4D /* rsMatrix.cpp in Sources */,
+				E065C8EB11D6A21000B7BD4D /* rsQuat.cpp in Sources */,
+				E065C8EC11D6A21000B7BD4D /* rsVec.cpp in Sources */,
+				E065C8ED11D6A21000B7BD4D /* rsVec4.cpp in Sources */,
+				E065C92E11D6AA0400B7BD4D /* rsText.cpp in Sources */,
+				E065C94711D6AC6600B7BD4D /* Rgbhsl.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E0D706D611D98A6300FE176A /* ConfigureSheet.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D706D711D98A6300FE176A /* English */,
+			);
+			name = ConfigureSheet.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EF7AD72E08BB986600CE4634 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Microcosm_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				PRODUCT_NAME = Microcosm;
+				WARNING_CFLAGS = "-Wmost";
+				WRAPPER_EXTENSION = saver;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		EF7AD72F08BB986600CE4634 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Microcosm_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				PRODUCT_NAME = Microcosm;
+				WARNING_CFLAGS = "-Wmost";
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
+		EF7AD73208BB986600CE4634 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = unsupported;
+				"GCC_ENABLE_OBJC_GC[arch=x86_64]" = supported;
+				"GCC_VERSION[sdk=macosx10.4][arch=*]" = 4.0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+				"SDKROOT[arch=x86_64]" = macosx10.6;
+			};
+			name = Debug;
+		};
+		EF7AD73308BB986600CE4634 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = unsupported;
+				"GCC_ENABLE_OBJC_GC[arch=x86_64]" = supported;
+				"GCC_VERSION[sdk=macosx10.4][arch=*]" = 4.0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.4;
+				"SDKROOT[arch=x86_64]" = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF7AD72D08BB986600CE4634 /* Build configuration list for PBXNativeTarget "Microcosm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7AD72E08BB986600CE4634 /* Debug */,
+				EF7AD72F08BB986600CE4634 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF7AD73108BB986600CE4634 /* Build configuration list for PBXProject "Microcosm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7AD73208BB986600CE4634 /* Debug */,
+				EF7AD73308BB986600CE4634 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
