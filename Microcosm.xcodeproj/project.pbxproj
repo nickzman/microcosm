@@ -590,6 +590,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				OTHER_CFLAGS = "-fstack-protector";
 				PRODUCT_NAME = Microcosm;
 				WARNING_CFLAGS = "-Wmost";
 				WRAPPER_EXTENSION = saver;
@@ -604,6 +605,7 @@
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_FAST_MATH = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Microcosm_Prefix.pch;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
