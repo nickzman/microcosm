@@ -13,6 +13,7 @@
 		8D255ACC0486D3F9007BF209 /* MicrocosmView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F500797A0118B23001CA0E54 /* MicrocosmView.mm */; };
 		8D255ACE0486D3F9007BF209 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		8D255ACF0486D3F9007BF209 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F27B2DFFEEEFEF11CA0E56 /* ScreenSaver.framework */; };
+		E062111A11DC62D8008363B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E062111811DC62D8008363B1 /* Localizable.strings */; };
 		E065C85011D69EE200B7BD4D /* extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84A11D69EE100B7BD4D /* extensions.cpp */; };
 		E065C85111D69EE200B7BD4D /* Gizmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84B11D69EE100B7BD4D /* Gizmo.cpp */; };
 		E065C85211D69EE200B7BD4D /* Microcosm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E065C84C11D69EE100B7BD4D /* Microcosm.cpp */; };
@@ -102,6 +103,7 @@
 		32DBCFA80370C50100C91783 /* Microcosm_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Microcosm_Prefix.pch; sourceTree = "<group>"; };
 		8D255AD20486D3F9007BF209 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D255AD30486D3F9007BF209 /* Microcosm.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Microcosm.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		E062111911DC62D8008363B1 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E065C84A11D69EE100B7BD4D /* extensions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = extensions.cpp; sourceTree = "<group>"; };
 		E065C84B11D69EE100B7BD4D /* Gizmo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Gizmo.cpp; sourceTree = "<group>"; };
 		E065C84C11D69EE100B7BD4D /* Microcosm.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Microcosm.cpp; sourceTree = "<group>"; };
@@ -222,9 +224,10 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E0D706D611D98A6300FE176A /* ConfigureSheet.nib */,
 				8D255AD20486D3F9007BF209 /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+				E0D706D611D98A6300FE176A /* ConfigureSheet.nib */,
+				E062111811DC62D8008363B1 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			files = (
 				8D255ACA0486D3F9007BF209 /* InfoPlist.strings in Resources */,
 				E0D706D811D98A6300FE176A /* ConfigureSheet.nib in Resources */,
+				E062111A11DC62D8008363B1 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +571,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		E062111811DC62D8008363B1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E062111911DC62D8008363B1 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		E0D706D611D98A6300FE176A /* ConfigureSheet.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -590,7 +602,6 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				OTHER_CFLAGS = "-fstack-protector";
 				PRODUCT_NAME = Microcosm;
 				WARNING_CFLAGS = "-Wmost";
 				WRAPPER_EXTENSION = saver;
