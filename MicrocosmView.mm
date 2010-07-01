@@ -50,7 +50,7 @@ inline BOOL canUseShaders(void)
     self = [super initWithFrame:frame isPreview:isPreview];
     if (self)
 	{
-		lSettings.doingPreview = isPreview;
+		//lSettings.doingPreview = isPreview;
 		if (isPreview)
 			lMainScreen = YES;
 		else
@@ -272,7 +272,7 @@ inline BOOL canUseShaders(void)
 	[self willChangeValueForKey:@"cameraSpeed"];
 	[self willChangeValueForKey:@"shaders"];
 	[self willChangeValueForKey:@"fog"];
-	setDefaults(1, &lSettings);
+	setDefaults(0, &lSettings);
 	if (!canUseShaders())
 		lSettings.dShaders = NO;
 	[self didChangeValueForKey:@"fog"];
