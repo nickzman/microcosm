@@ -182,9 +182,17 @@ inline float rsCosf(float value){
 	// Remap value from {0,2pi} to {0,65536} and add fast typecast bias
 	bof.f = value * (65536.0f / 6.28318530718f) + 12582912.0f;
 	// Use low-order byte for fractional multiplier
+#ifdef __BIG_ENDIAN__
+        const float fraction(float(bof.c[3]) * 0.00390625f);
+#else
 	const float fraction(float(bof.c[0]) * 0.00390625f);
+#endif
 	// Use high-order byte for table lookup
+#ifdef __BIG_ENDIAN__
+        const unsigned char i(bof.c[2]);
+#else
 	const unsigned char i(bof.c[1]);
+#endif
 	// Do it
 	return rs_cosine_table[i] + fraction * rs_cosine_fraction_table[i];
 }
@@ -195,9 +203,17 @@ inline float rsSinf(float value){
 	// Remap value from {0,2pi} to {0,65536} and add fast typecast bias
 	bof.f = value * (65536.0f / 6.28318530718f) + 12582912.0f;
 	// Use low-order byte for fractional multiplier
+#ifdef __BIG_ENDIAN__
+        const float fraction(float(bof.c[3]) * 0.00390625f);
+#else
 	const float fraction(float(bof.c[0]) * 0.00390625f);
+#endif
 	// Use high-order byte for table lookup
+#ifdef __BIG_ENDIAN__
+        const unsigned char i(bof.c[2]);
+#else
 	const unsigned char i(bof.c[1]);
+#endif
 	// Do it
 	return rs_sine_table[i] + fraction * rs_sine_fraction_table[i];
 }
