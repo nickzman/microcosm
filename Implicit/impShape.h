@@ -60,7 +60,7 @@ public:
 	float thickness, thicknessSquared;
 
 	impShape();
-	~impShape(){};
+	virtual ~impShape(){};
 	void setPosition(float x, float y, float z);
 	void setPosition(float* position){ setPosition(position[0], position[1], position[2]); }
 	void setMatrix(float* m);

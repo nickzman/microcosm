@@ -60,7 +60,7 @@ protected:
 
 public:
 	Gizmo(int gizmoSpeed);
-	~Gizmo();
+	virtual ~Gizmo();
 
 	virtual void setScale(float s);
 
