@@ -361,7 +361,7 @@ void* threadFunction1(void* arg){
 }
 
 
-void chooseGizmo(int index = -1, MicrocosmSaverSettings *inSettings = NULL){
+void chooseGizmo(int index, MicrocosmSaverSettings *inSettings){
 	if(index >= 0 && index < int(inSettings->gizmos.size()))  // choose specific Gizmo
 		inSettings->gGizmoIndex = index;
 	else{
@@ -443,11 +443,11 @@ void draw(MicrocosmSaverSettings *inSettings){
 		}
 		else{
 			if(inSettings->gSpecificGizmo >= 0){
-				chooseGizmo(inSettings->gSpecificGizmo);
+				chooseGizmo(inSettings->gSpecificGizmo, inSettings);
 				inSettings->gSpecificGizmo = -1;
 			}
 			else
-				chooseGizmo();
+				chooseGizmo(-1, inSettings);
 		}
 	}
 
