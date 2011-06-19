@@ -247,6 +247,7 @@ inline BOOL canUseShaders(void)
 	[inDefaults setBool:lSettings.dShaders forKey:@"Shaders"];
 	[inDefaults setBool:lSettings.dFog forKey:@"Fog"];
 	[inDefaults setBool:lMainScreenOnly forKey:@"MainScreenOnly"];
+	[inDefaults synchronize];
 	
 	lIsConfiguring = NO;
 	if ([self isAnimating])
