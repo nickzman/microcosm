@@ -61,10 +61,10 @@ inline BOOL canUseShaders(void)
 		{
 			NSOpenGLPixelFormatAttribute attribs[] = 
 			{
-				NSOpenGLPFAAccelerated, (NSOpenGLPixelFormatAttribute)YES,
+				NSOpenGLPFAAccelerated,
 				NSOpenGLPFAColorSize, (NSOpenGLPixelFormatAttribute)32,
-				NSOpenGLPFADoubleBuffer, (NSOpenGLPixelFormatAttribute)YES,
-				NSOpenGLPFAMinimumPolicy, (NSOpenGLPixelFormatAttribute)YES,
+				NSOpenGLPFADoubleBuffer,
+				NSOpenGLPFAMinimumPolicy,
 				NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute)16,
 				(NSOpenGLPixelFormatAttribute)0
 			};
@@ -74,6 +74,8 @@ inline BOOL canUseShaders(void)
             {
                 lView = [[[NSOpenGLView alloc] initWithFrame:NSZeroRect pixelFormat:format] autorelease];
                 [self addSubview:lView];
+				if ([lView respondsToSelector:@selector(setWantsBestResolutionOpenGLSurface:)])
+					lView.wantsBestResolutionOpenGLSurface = YES;
                 
 				[[lView openGLContext] makeCurrentContext];	// must do this before queryExtension() will work
 				setDefaults(0, &lSettings);
@@ -104,7 +106,15 @@ inline BOOL canUseShaders(void)
 	[super setFrameSize:size];
 	if (lView)
 		[lView setFrameSize:size];
-	reshape(int(size.width), int(size.height), &lSettings);
+	
+	if ([lView respondsToSelector:@selector(convertRectToBacking:)])
+	{
+		NSRect newBounds = [lView convertRectToBacking:lView.bounds];
+		
+		reshape(int(newBounds.size.width), int(newBounds.size.height), &lSettings);
+	}
+	else
+		reshape(int(size.width), int(size.height), &lSettings);
 }
 
 
