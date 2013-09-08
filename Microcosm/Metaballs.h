@@ -61,7 +61,7 @@ public:
 		rsMatrix m;
 		float x(0.0f);
 		const float dx(RS_PIx2 / float(mShapes.size()));
-		const float offset(0.3f);
+		//const float offset(0.3f);
 		for(unsigned int i=0; i<mShapes.size(); ++i){
 			m.makeTranslate(0.0f, 0.27f * mCoeff[7], 0.27f * mCoeff[8]);
 			m.rotate((mCoeffPhase[9] * 2.0f + x), 1.0f, 0.0f, 0.0f);
