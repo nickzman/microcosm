@@ -107,7 +107,7 @@ inline BOOL canUseShaders(void)
 	if (lView)
 		[lView setFrameSize:size];
 	
-	if ([lView respondsToSelector:@selector(convertRectToBacking:)])
+	if ([lView respondsToSelector:@selector(convertRectToBacking:)] && lView.wantsBestResolutionOpenGLSurface)	// on Lion & later, if we're using a best resolution surface, then call glViewport() with the appropriate width and height for the backing
 	{
 		NSRect newBounds = [lView convertRectToBacking:lView.bounds];
 		
