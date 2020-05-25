@@ -61,6 +61,7 @@ typedef struct MicrocosmSaverSettings
 	float gModeTransitionDir;// = 1.0f;
 	// text output
 	rsText* textwriter;
+	bool first;
 	// Parameters edited in the dialog box
 	int dSingleTime;
 	int dKaleidoscopeTime;
@@ -73,6 +74,7 @@ typedef struct MicrocosmSaverSettings
 	int dCameraSpeed;
 	int dShaders;
 	int dFog;
+	bool kStatistics;
 	
 	int gSpecificGizmo;// = -1;
 	float gNumberInputTimer;// = 0.0f;

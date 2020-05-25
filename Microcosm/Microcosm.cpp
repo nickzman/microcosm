@@ -382,11 +382,10 @@ void chooseGizmo(int index, MicrocosmSaverSettings *inSettings){
 
 
 void draw(MicrocosmSaverSettings *inSettings){
-	/*static int first = 1;
-	if(first){
+	if(inSettings->first){
 		inSettings->textwriter = new rsText;
-		first = 0;
-	}*/
+		inSettings->first = 0;
+	}
 
 	// count-down available time for pressing second digit
 	if(inSettings->gNumberInputTimer > 0.0f)
@@ -787,7 +786,7 @@ void draw(MicrocosmSaverSettings *inSettings){
 		inSettings->drawTime = 0.0f;
 		frames = 0;
 	}
-	/*if(kStatistics){
+	if(inSettings->kStatistics){
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
@@ -799,12 +798,12 @@ void draw(MicrocosmSaverSettings *inSettings){
 		glTranslatef(1.0f, 48.0f, 0.0f);
 
 		glColor3f(1.0f, 0.6f, 0.0f);
-		textwriter->draw(strvec);
+		inSettings->textwriter->draw(strvec);
 
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
-	}*/
+	}
 
 #ifdef WIN32
 	wglSwapLayerBuffers(hdc, WGL_SWAP_MAIN_PLANE);

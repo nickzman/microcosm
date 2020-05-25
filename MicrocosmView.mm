@@ -26,16 +26,6 @@
 #import "MicrocosmView.h"
 #import "Microcosm/extensions.h"
 
-inline BOOL canUseShaders(void)
-{
-	SInt32 osVersion;
-	
-	Gestalt(gestaltSystemVersion, &osVersion);
-	if (queryExtension("GL_ARB_multitexture") == false || queryExtension("GL_ARB_shader_objects") == false || osVersion < 0x1043)	// check to see if those extensions are available, and that we're using Mac OS X 10.4.3 or later
-		return NO;
-	return YES;
-}
-
 @interface MicrocosmView (Private)
 - (void)readDefaults:(ScreenSaverDefaults *)defaults;
 @end
@@ -66,16 +56,16 @@ inline BOOL canUseShaders(void)
 				NSOpenGLPFADoubleBuffer,
 				NSOpenGLPFAMinimumPolicy,
 				NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute)16,
+				NSOpenGLPFAAllowOfflineRenderers,
 				(NSOpenGLPixelFormatAttribute)0
 			};
-            NSOpenGLPixelFormat *format = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attribs] autorelease];
+            NSOpenGLPixelFormat *format = [[NSOpenGLPixelFormat alloc] initWithAttributes:attribs];
             
             if (format)
             {
-                lView = [[[NSOpenGLView alloc] initWithFrame:NSZeroRect pixelFormat:format] autorelease];
+                lView = [[NSOpenGLView alloc] initWithFrame:NSZeroRect pixelFormat:format];
                 [self addSubview:lView];
-				if ([lView respondsToSelector:@selector(setWantsBestResolutionOpenGLSurface:)])
-					lView.wantsBestResolutionOpenGLSurface = YES;
+				lView.wantsBestResolutionOpenGLSurface = YES;
                 
 				[[lView openGLContext] makeCurrentContext];	// must do this before queryExtension() will work
 				setDefaults(0, &lSettings);
@@ -84,20 +74,12 @@ inline BOOL canUseShaders(void)
                     [self readDefaults:defaults];
                 }
                 
-				if (!canUseShaders())
-					lSettings.dShaders = NO;
-                [self setAnimationTimeInterval:1/30.0];
+				self.animationTimeInterval = 1.0/60.0;
+				lSettings.first = true;
             }
 		}
     }
     return self;
-}
-
-
-- (void)dealloc
-{
-	[ibConfigureSheet release];
-	[super dealloc];
 }
 
 
@@ -107,7 +89,7 @@ inline BOOL canUseShaders(void)
 	if (lView)
 		[lView setFrameSize:size];
 	
-	if ([lView respondsToSelector:@selector(convertRectToBacking:)] && lView.wantsBestResolutionOpenGLSurface)	// on Lion & later, if we're using a best resolution surface, then call glViewport() with the appropriate width and height for the backing
+	if (lView.wantsBestResolutionOpenGLSurface)	// on Lion & later, if we're using a best resolution surface, then call glViewport() with the appropriate width and height for the backing
 	{
 		NSRect newBounds = [lView convertRectToBacking:lView.bounds];
 		
@@ -180,8 +162,6 @@ inline BOOL canUseShaders(void)
             
             tAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:[NSFont systemFontSize]],NSFontAttributeName,[NSColor whiteColor],NSForegroundColorAttributeName,tParagraphStyle,NSParagraphStyleAttributeName,nil];
             
-            [tParagraphStyle release];
-            
             tString=NSLocalizedStringFromTableInBundle(@"Minimum OpenGL requirements\rfor this Screen Effect\rnot available\ron your graphic card.",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
             
             tStringFrame.origin=NSZeroPoint;
@@ -224,11 +204,9 @@ inline BOOL canUseShaders(void)
 	lIsConfiguring = YES;
 	if (ibConfigureSheet == nil)
 	{
-		if ([NSBundle loadNibNamed:@"ConfigureSheet" owner:self])
+		if ([[NSBundle bundleForClass:self.class] loadNibNamed:@"ConfigureSheet" owner:self topLevelObjects:NULL])
 		{
 			[ibVersionTxt setStringValue:[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"]];	// set the version text
-			if (canUseShaders())
-				[ibShaderCbx setEnabled:NO];
 		}
 		else
 			NSLog(@"Warning: %@ couldn't load ConfigureSheet.nib.", [self className]);
@@ -284,8 +262,6 @@ inline BOOL canUseShaders(void)
 	[self willChangeValueForKey:@"shaders"];
 	[self willChangeValueForKey:@"fog"];
 	setDefaults(0, &lSettings);
-	if (!canUseShaders())
-		lSettings.dShaders = NO;
 	[self didChangeValueForKey:@"fog"];
 	[self didChangeValueForKey:@"shaders"];
 	[self didChangeValueForKey:@"cameraSpeed"];
