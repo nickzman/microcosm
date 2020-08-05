@@ -1168,23 +1168,27 @@ void initSaver(MicrocosmSaverSettings *inSettings){
 		if(thread0 == NULL || thread1 == NULL)
 			inSettings->gUseThreads = false;
 #else
-		pthread_attr_t stackSizeAttribute;
+		pthread_attr_t threadAttrs;
 		size_t stackSize = 0;
 		const size_t desiredStackSize = 8388608;
 		
-		// NZ: I found that Mac OS X's default stack size just isn't cutting it. Let's make it larger for our threads...
-		pthread_attr_init(&stackSizeAttribute);
-		pthread_attr_getstacksize(&stackSizeAttribute, &stackSize);
+		// NZ: I found that macOS' default stack size just isn't cutting it. Let's make it larger for our threads...
+		pthread_attr_init(&threadAttrs);
+		pthread_attr_getstacksize(&threadAttrs, &stackSize);
 		if (stackSize < desiredStackSize)
-			pthread_attr_setstacksize(&stackSizeAttribute, desiredStackSize);
+			pthread_attr_setstacksize(&threadAttrs, desiredStackSize);
+		if (__builtin_available(macOS 10.10, *))
+		{
+			pthread_attr_set_qos_class_np(&threadAttrs, QOS_CLASS_USER_INTERACTIVE, 0);	// use the user-interactive QoS class in order to emphasize performance
+		}
 		
 		// Conditional variables require their associated mutexes to start out locked
 		pthread_mutex_lock(&inSettings->gT0EndMutex);
 		pthread_mutex_lock(&inSettings->gT1EndMutex);
 
 		// Create threads
-		if(0 != pthread_create(&inSettings->gThread0, &stackSizeAttribute, threadFunction0, inSettings)
-			|| 0 != pthread_create(&inSettings->gThread1, &stackSizeAttribute, threadFunction1, inSettings))
+		if(0 != pthread_create(&inSettings->gThread0, &threadAttrs, threadFunction0, inSettings)
+			|| 0 != pthread_create(&inSettings->gThread1, &threadAttrs, threadFunction1, inSettings))
 			inSettings->gUseThreads = false;
 
 		// Block until signal is received.  Mutex is unlocked while waiting.
